@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "file": "generation_0002_20260207_144710.wav",
+        "accuracy": 0.4182,
+        "match": "FAIL",
+        "timestamp": "2026-02-07T14:47:10.499904"
+    },
+    {
+        "file": "generation_0002_20260207_151033.wav",
+        "accuracy": 0.7273,
+        "match": "FAIL",
+        "timestamp": "2026-02-07T15:10:33.773608"
+    },
+    {
+        "file": "generation_0001_20260207_150909.wav",
+        "accuracy": 0.7455,
+        "match": "FAIL",
+        "timestamp": "2026-02-07T15:09:09.541704"
+    },
+    {
+        "file": "generation_0001_20260207_144506.wav",
+        "accuracy": 0,
+        "match": "FAIL",
+        "timestamp": "2026-02-07T14:45:06.265636"
+    }
+]
