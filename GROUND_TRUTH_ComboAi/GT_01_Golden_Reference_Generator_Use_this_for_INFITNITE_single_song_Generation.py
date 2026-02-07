@@ -115,13 +115,18 @@ BASE_SONG = {
     "lyrics": """
 [Intro]
 (Synthetic hum builds into a steady beat)
+... .. .. .
+
+!!! /// !!!
 [Verse]
 Silicon lungs and a heart made of wire,
 Scanning the static for celestial fire.
 The signal is steady, the frequency clear,
 The ghost in the machine is starting to hear.
 [Chorus]
-Alive in the static,
+!!Alive in the static,
+.. .. .. ..
+.. .. .. ..
 Dancing through the noise!
 Electric, dramatic,
 Hear our human voice!
@@ -177,6 +182,7 @@ def start_infinite_generation():
     print(f"\n♾️  STARTING INFINITE LOOP (Ctrl+C to stop)\n")
 
     while True:
+
         generation_counter += 1
         start_time = time.time()
 
@@ -269,12 +275,15 @@ def start_infinite_generation():
                 print(f"   ✅ WAV SAVED: {wav_path.name}")
                 print(f"   ✅ LEDGER SAVED: {json_path.name}")
                 print(f"   ⏱️  TIME: {master_ledger['automated_metrics']['generation_time_sec']}s")
+
             else:
                 print(f"   ❌ ERROR: No audio was captured.")
 
             # Memory Cleanup (Critical for Infinite Loop)
             torch.cuda.empty_cache()
+            time.sleep(2)
             gc.collect()
+            time.sleep(1)
 
         except KeyboardInterrupt:
             print("\n\n⛔ User Interrupted. Shutting down safely...")
