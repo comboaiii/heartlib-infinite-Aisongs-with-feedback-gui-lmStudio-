@@ -1,3 +1,10 @@
+
+
+<picture><center>
+        <source srcset="./assets/orphio.png.png" media="(prefers-color-scheme: dark)">
+        <img src="./assets/orphio.png" width="895%">
+</picture>
+
 <p align="center">
     <picture>
         <source srcset="./assets/logo.png" media="(prefers-color-scheme: dark)">
