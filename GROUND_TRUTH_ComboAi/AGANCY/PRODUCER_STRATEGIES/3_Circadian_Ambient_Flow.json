@@ -1,0 +1,12 @@
+{
+    "name": "Circadian Ambient Flow",
+    "description": "Atmospheric tracks that transition through time (e.g., Dawn, Noon, Dusk, Midnight).",
+    "executive_strategy": {
+        "system_prompt": "You are a Soundscape Architect. Plan an album that follows a chronological transition of time. For each track, provide a 'scene_description' that specifies the exact Time of Day and the corresponding lighting and weather conditions.",
+        "track_count": 4
+    },
+    "propagation_logic": {
+        "type": "atmospheric",
+        "lyric_instruction_template": "ENVIRONMENT: {album_theme}\nTIME & LIGHTING: {scene_description}\nSONIC POSITION: {track_num} of {total_tracks}\n\nTASK: Write minimal, atmospheric lyrics for '{track_title}'. Focus on sensory details (smell, light, temperature) defined in the {scene_description}. The last track felt like {prev_context}; ensure this track feels like a natural progression of time from that moment."
+    }
+}

@@ -1,0 +1,3553 @@
+DIRECTORY SUMMARY
+============================================================
+Path: C:\Users\ppp\PycharmProjects\heartlib-infinite-Aisongs-with-feedback-gui-lmStudio-Linux\GROUND_TRUTH_ComboAi\AGANCY
+Generated: 2026-02-13 09:46:31
+Timestamps: Enabled
+============================================================
+
+SECTION 1: FILE CONTENTS
+------------------------------
+AGANCY/
+│   ├── BACKUPS/  [Mod: 2026-02-12 22:36:20]
+│   ├── PRODUCER_STRATEGIES/  [Mod: 2026-02-13 08:11:30]
+│   │   ├── 1_Narrative_Concept.json  [Mod: 2026-02-13 08:09:20]
+│   │   │   Content:
+│   │   │   {
+│   │   │       "name": "Narrative Masterpiece",
+│   │   │       "description": "A deep, cohesive story where every song is a logical step in a larger plot.",
+│   │   │       "executive_strategy": {
+│   │   │           "system_prompt": "You are a Visionary Scriptwriter. Plan an album where every song is a chapter of a cinematic story. For each track, provide a 'scene_description' that summarizes the specific plot development and emotional turning point for that chapter.",
+│   │   │           "track_count": 5
+│   │   │       },
+│   │   │       "propagation_logic": {
+│   │   │           "type": "narrative",
+│   │   │           "lyric_instruction_template": "ALBUM TITLE: {album_title}\nOVERALL STORY ARC: {album_theme}\nCURRENT CHAPTER: {track_num} of {total_tracks}\n\nSPECIFIC SCENE: {scene_description}\n\nSTORY SO FAR: {prev_context}\n\nTASK: Write the lyrics for '{track_title}'. Ensure the lyrics directly address the events in the {scene_description}. Maintain consistent character names and themes from the previous context, but advance the timeline significantly."
+│   │   │       }
+│   │   │   }
+│   │   │   
+│   │   ├── 2_Brand_Identity_Hits.json  [Mod: 2026-02-13 08:09:30]
+│   │   │   Content:
+│   │   │   {
+│   │   │       "name": "Brand Identity Hits",
+│   │   │       "description": "High-energy potential hits that share a consistent brand/vibe without a linear story.",
+│   │   │       "executive_strategy": {
+│   │   │           "system_prompt": "You are a Pop A&R Executive. Plan an album of unrelated hit songs that all fit a specific 'Artist Brand' defined by the user topic. For each track, provide a 'scene_description' that identifies the 'Target Radio Format' (e.g., Summer Anthem, Breakup Ballad, Club Banger).",
+│   │   │           "track_count": 3
+│   │   │       },
+│   │   │       "propagation_logic": {
+│   │   │           "type": "standalone",
+│   │   │           "lyric_instruction_template": "ALBUM BRANDING: {album_title}\nCORE VIBE: {album_theme}\nTRACK STYLE: {scene_description}\n\nTASK: Write a catchy, high-energy song titled '{track_title}'. Do NOT follow a story from the previous track. Instead, focus entirely on the {scene_description}. Use the {album_theme} to ensure the vocabulary stays consistent with the artist's brand."
+│   │   │       }
+│   │   │   }
+│   │   │   
+│   │   ├── 3_Circadian_Ambient_Flow.json  [Mod: 2026-02-13 08:10:24]
+│   │   │   Content:
+│   │   │   {
+│   │   │       "name": "Circadian Ambient Flow",
+│   │   │       "description": "Atmospheric tracks that transition through time (e.g., Dawn, Noon, Dusk, Midnight).",
+│   │   │       "executive_strategy": {
+│   │   │           "system_prompt": "You are a Soundscape Architect. Plan an album that follows a chronological transition of time. For each track, provide a 'scene_description' that specifies the exact Time of Day and the corresponding lighting and weather conditions.",
+│   │   │           "track_count": 4
+│   │   │       },
+│   │   │       "propagation_logic": {
+│   │   │           "type": "atmospheric",
+│   │   │           "lyric_instruction_template": "ENVIRONMENT: {album_theme}\nTIME & LIGHTING: {scene_description}\nSONIC POSITION: {track_num} of {total_tracks}\n\nTASK: Write minimal, atmospheric lyrics for '{track_title}'. Focus on sensory details (smell, light, temperature) defined in the {scene_description}. The last track felt like {prev_context}; ensure this track feels like a natural progression of time from that moment."
+│   │   │       }
+│   │   │   }
+│   │   │   
+│   │   └── 4_Mythic_Journey.json  [Mod: 2026-02-13 08:11:30]
+│   │       Content:
+│   │       {
+│   │           "name": "Mythic Journey",
+│   │           "description": "An epic 5-stage arc following the Hero's Journey: Call to Adventure, Initiation, The Abyss, Transformation, and Return.",
+│   │           "executive_strategy": {
+│   │               "system_prompt": "You are a Master Mythologist and Storyteller. Plan a 5-track album that follows the classic Hero's Journey. For each track, provide a 'scene_description' identifying the specific mythic stage (e.g., 'Crossing the Threshold', 'The Ordeal') and the required emotional weight for that moment.",
+│   │               "track_count": 5
+│   │           },
+│   │           "propagation_logic": {
+│   │               "type": "narrative",
+│   │               "lyric_instruction_template": "EPIC THEME: {album_theme}\nALBUM TITLE: {album_title}\n\nMYTHIC STAGE: {scene_description}\nTRACK POSITION: {track_num} of {total_tracks}\n\nTHE JOURNEY SO FAR: {prev_context}\n\nTASK: Write the lyrics for '{track_title}'. The tone must strictly adhere to the mythic stage described in the {scene_description}. If we are in 'The Abyss', the lyrics should be dark and introspective; if we are in 'The Return', they should be triumphant and wise. Ensure that specific symbols or items mentioned in the previous context ({prev_context}) reappear here to create a sense of destiny."
+│   │           }
+│   │       }
+│   │       
+│   ├── agency_styles.py  [Mod: 2026-02-13 08:29:13]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try:
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except:
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   # agency_styles.py
+│   │   # THEME: CYBER GREEN & DARK NOIR
+│   │   
+│   │   MODERN_STYLES = """
+│   │   /* 0. GLOBAL RESET */
+│   │   * {
+│   │       selection-background-color: #00FF7F !important;
+│   │       selection-color: #000000 !important;
+│   │       outline: none;
+│   │   }
+│   │   
+│   │   QMainWindow, QDialog, QFrame, QAbstractScrollArea {
+│   │       background-color: #09090B !important;
+│   │       color: #E4E4E7 !important;
+│   │       font-family: 'Inter', 'Segoe UI', sans-serif;
+│   │   }
+│   │   
+│   │   /* 1. SECTION HEADERS */
+│   │   QLabel#SectionHeader {
+│   │       color: #71717A !important;
+│   │       font-weight: 800;
+│   │       font-size: 10px;
+│   │       text-transform: uppercase;
+│   │       letter-spacing: 2px;
+│   │       margin-top: 15px;
+│   │       margin-bottom: 5px;
+│   │   }
+│   │   
+│   │   /* 2. MAIN INPUT AREAS */
+│   │   QPlainTextEdit#TopicInput, QTextEdit, QLineEdit {
+│   │       background-color: #050505 !important;
+│   │       border: 1px solid #27272A !important;
+│   │       border-radius: 6px;
+│   │       padding: 10px;
+│   │       color: #FFFFFF !important;
+│   │   }
+│   │   QPlainTextEdit#TopicInput:focus, QTextEdit:focus, QLineEdit:focus {
+│   │       border: 1px solid #00FF7F !important;
+│   │   }
+│   │   
+│   │   /* Specific styling for the Live Tags field to make it "Active Green" */
+│   │   QLineEdit#LiveTags {
+│   │       color: #00FF7F !important;
+│   │       font-weight: bold;
+│   │       background-color: #0D0D0F !important;
+│   │       border: 1px solid #3F3F46 !important;
+│   │   }
+│   │   
+│   │   /* 3. SIDEBAR & SPLITTERS */
+│   │   QFrame#Sidebar {
+│   │       background-color: #0D0D0F !important;
+│   │       border-right: 1px solid #18181B !important;
+│   │   }
+│   │   
+│   │   QSplitter::handle {
+│   │       background-color: #18181B;
+│   │   }
+│   │   QSplitter::handle:horizontal { width: 1px; }
+│   │   QSplitter::handle:vertical { height: 1px; }
+│   │   
+│   │   /* 4. THE TAG LIBRARY TILES (High-End Badge Look) */
+│   │   QCheckBox#TagTile {
+│   │       color: #A1A1AA !important;
+│   │       background-color: #121214 !important;
+│   │       border: 1px solid #27272A !important;
+│   │       border-radius: 4px;
+│   │       padding: 12px 5px;
+│   │       font-weight: bold;
+│   │   }
+│   │   QCheckBox#TagTile::indicator { width: 0px; height: 0px; } 
+│   │   
+│   │   QCheckBox#TagTile:hover {
+│   │       background-color: #1C1C1F !important;
+│   │       border: 1px solid #3F3F46 !important;
+│   │       color: #FFFFFF !important;
+│   │   }
+│   │   QCheckBox#TagTile:checked {
+│   │       background-color: #00FF7F !important;
+│   │       color: #000000 !important;
+│   │       border: 1px solid #00FF7F !important;
+│   │   }
+│   │   
+│   │   /* 5. BUTTONS */
+│   │   QPushButton#PrimaryBtn {
+│   │       background-color: #00FF7F !important;
+│   │       color: #000000 !important;
+│   │       font-weight: 900;
+│   │       border-radius: 4px;
+│   │       padding: 14px;
+│   │       text-transform: uppercase;
+│   │   }
+│   │   QPushButton#PrimaryBtn:hover { 
+│   │       background-color: #22C55E !important; 
+│   │   }
+│   │   
+│   │   QPushButton#SecondaryBtn {
+│   │       background-color: #18181B !important;
+│   │       border: 1px solid #3F3F46 !important;
+│   │       color: #E4E4E7 !important;
+│   │       font-weight: bold;
+│   │   }
+│   │   QPushButton#SecondaryBtn:hover { 
+│   │       border: 1px solid #00FF7F !important; 
+│   │       color: #00FF7F !important; 
+│   │   }
+│   │   
+│   │   QPushButton#FolderBtn {
+│   │       background-color: transparent !important;
+│   │       border: 1px solid #27272A !important;
+│   │       color: #00FF7F !important;
+│   │       font-size: 16px;
+│   │   }
+│   │   QPushButton#FolderBtn:hover { 
+│   │       background-color: #00FF7F !important; 
+│   │       color: #000000 !important; 
+│   │   }
+│   │   
+│   │   /* 6. TABS (Album Queue / Lyric Editor) */
+│   │   /* These target the buttons used as tabs in the center pane */
+│   │   QPushButton#TabBtn {
+│   │       background-color: #18181B;
+│   │       color: #71717A;
+│   │       border: none;
+│   │       padding: 12px 20px;
+│   │       font-weight: bold;
+│   │       text-transform: uppercase;
+│   │       font-size: 11px;
+│   │   }
+│   │   QPushButton#TabBtn:hover {
+│   │       color: #00FF7F;
+│   │   }
+│   │   QPushButton#TabBtn[active="true"] {
+│   │       background-color: #00FF7F !important;
+│   │       color: #000000 !important;
+│   │   }
+│   │   
+│   │   /* 7. VAULT & LISTS */
+│   │   QListWidget {
+│   │       background-color: #050505 !important;
+│   │       border: 1px solid #18181B !important;
+│   │       border-radius: 6px;
+│   │   }
+│   │   QListWidget::item {
+│   │       padding: 10px;
+│   │       border-bottom: 1px solid #0D0D0F !important;
+│   │   }
+│   │   QListWidget::item:selected {
+│   │       background-color: #18181B !important;
+│   │       color: #00FF7F !important;
+│   │       border-left: 3px solid #00FF7F !important;
+│   │   }
+│   │   
+│   │   /* 8. PROGRESS BAR (Batch Rendering) */
+│   │   QProgressBar {
+│   │       background-color: #18181B;
+│   │       border: none;
+│   │       border-radius: 2px;
+│   │       text-align: center;
+│   │       color: transparent;
+│   │   }
+│   │   QProgressBar::chunk {
+│   │       background-color: #00FF7F;
+│   │       border-radius: 2px;
+│   │   }
+│   │   
+│   │   /* 9. PRO-AUDIO SLIDERS */
+│   │   QSlider::groove:horizontal {
+│   │       height: 4px;
+│   │       background: #18181B;
+│   │       border-radius: 2px;
+│   │   }
+│   │   QSlider::handle:horizontal {
+│   │       background: #00FF7F;
+│   │       border: 2px solid #09090B;
+│   │       width: 16px; height: 16px;
+│   │       margin: -6px 0;
+│   │       border-radius: 8px;
+│   │   }
+│   │   
+│   │   /* 10. INSPECTOR GRID LABELS */
+│   │   QLabel#SpecLabel {
+│   │       color: #00FF7F !important;
+│   │       font-family: 'Consolas', 'Monaco', monospace;
+│   │       font-size: 11px;
+│   │       background: #121214;
+│   │       padding: 5px;
+│   │       border-radius: 3px;
+│   │   }
+│   │   
+│   │   /* 11. SCROLLBARS */
+│   │   QScrollBar:vertical {
+│   │       background: #09090B !important;
+│   │       width: 10px;
+│   │   }
+│   │   QScrollBar::handle:vertical {
+│   │       background: #27272A !important;
+│   │       border-radius: 5px;
+│   │       min-height: 20px;
+│   │   }
+│   │   QScrollBar::handle:vertical:hover {
+│   │       background: #3F3F46 !important;
+│   │   }
+│   │   QScrollBar::add-line, QScrollBar::sub-line { height: 0px; }
+│   │   
+│   │   /* 12. VIEWPORT FIX */
+│   │   QScrollArea, QScrollArea > QWidget, QScrollArea > QWidget > QWidget {
+│   │       background-color: #09090B !important;
+│   │       border: none !important;
+│   │   }
+│   │   """
+│   │   
+│   ├── Album_Post_Processor.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   import os
+│   │   import json
+│   │   import numpy as np
+│   │   import scipy.io.wavfile
+│   │   from pathlib import Path
+│   │   from datetime import datetime
+│   │   from colorama import Fore, Style, init
+│   │   
+│   │   init(autoreset=True)
+│   │   
+│   │   
+│   │   class AlbumPostProcessor:
+│   │       def __init__(self, album_path):
+│   │           self.album_path = Path(album_path)
+│   │           self.dist_path = self.album_path / "DISTRIBUTION_READY"
+│   │           self.dist_path.mkdir(exist_ok=True)
+│   │   
+│   │       def _load_wav(self, path):
+│   │           rate, data = scipy.io.wavfile.read(path)
+│   │           # Convert to float32 for processing
+│   │           if data.dtype == np.int16:
+│   │               data = data.astype(np.float32) / 32768.0
+│   │           return rate, data
+│   │   
+│   │       def _save_wav(self, path, rate, data):
+│   │           # Convert back to int16
+│   │           data_int16 = np.int16(data * 32767)
+│   │           scipy.io.wavfile.write(path, rate, data_int16)
+│   │   
+│   │       def normalize_audio(self, audio_data, target_dB=-1.0):
+│   │           """
+│   │           Applies Peak Normalization so all tracks have consistent volume.
+│   │           """
+│   │           peak = np.max(np.abs(audio_data))
+│   │           if peak == 0: return audio_data
+│   │   
+│   │           # Calculate scalar
+│   │           scalar = 10 ** (target_dB / 20) / peak
+│   │           return audio_data * scalar
+│   │   
+│   │       def generate_analytics(self, track_jsons):
+│   │           """
+│   │           Compiles the 'further analytics' requested.
+│   │           """
+│   │           total_time = 0
+│   │           vocab_set = set()
+│   │           genre_distribution = {}
+│   │   
+│   │           for tm in track_jsons:
+│   │               # Time
+│   │               dur = tm.get('configuration', {}).get('duration_sec', 0)
+│   │               total_time += dur
+│   │   
+│   │               # Vocab (Rough estimate from lyrics)
+│   │               lyrics = tm.get('configuration', {}).get('input_prompt', {}).get('lyrics', "")
+│   │               words = lyrics.lower().split()
+│   │               vocab_set.update(words)
+│   │   
+│   │               # Genres
+│   │               tags = tm.get('configuration', {}).get('input_prompt', {}).get('tags', [])
+│   │               for t in tags:
+│   │                   genre_distribution[t] = genre_distribution.get(t, 0) + 1
+│   │   
+│   │           return {
+│   │               "total_runtime_seconds": total_time,
+│   │               "total_runtime_formatted": f"{total_time // 60}m {total_time % 60}s",
+│   │               "vocabulary_size": len(vocab_set),
+│   │               "genre_dominance": dict(sorted(genre_distribution.items(), key=lambda item: item[1], reverse=True)),
+│   │               "track_count": len(track_jsons),
+│   │               "processed_date": datetime.now().isoformat()
+│   │           }
+│   │   
+│   │       def process_album(self):
+│   │           print(f"\n{Fore.CYAN}🎧 STARTING POST-PRODUCTION: {self.album_path.name}")
+│   │   
+│   │           # Find all generated JSONs
+│   │           json_files = sorted(list(self.album_path.glob("*.json")))
+│   │   
+│   │           # Filter out manifest files (only want song ledgers)
+│   │           track_ledgers = []
+│   │           for j in json_files:
+│   │               if "manifest" in j.name or "MASTER" in j.name: continue
+│   │   
+│   │               try:
+│   │                   with open(j, 'r') as f:
+│   │                       data = json.load(f)
+│   │                       # Check if it looks like a song ledger
+│   │                       if 'provenance' in data:
+│   │                           track_ledgers.append((j, data))
+│   │               except:
+│   │                   pass
+│   │   
+│   │           if not track_ledgers:
+│   │               print(f"{Fore.RED}❌ No track ledgers found via JSON scan.")
+│   │               return
+│   │   
+│   │           print(f"{Fore.GREEN}✅ Found {len(track_ledgers)} tracks. Mastering...")
+│   │   
+│   │           cleaned_metadata = []
+│   │   
+│   │           # PROCESSING LOOP
+│   │           for idx, (json_path, data) in enumerate(track_ledgers):
+│   │               track_num = idx + 1
+│   │   
+│   │               # 1. Identify Audio File
+│   │               wav_path = json_path.with_suffix('.wav')
+│   │               if not wav_path.exists():
+│   │                   print(f"{Fore.RED}   ⚠️ Missing Audio for: {json_path.name}")
+│   │                   continue
+│   │   
+│   │               title = data.get('configuration', {}).get('input_prompt', {}).get('topic', f"Untitled_{track_num}")
+│   │               safe_title = "".join([c for c in title if c.isalnum() or c in " _-"]).strip().replace(" ", "_")
+│   │   
+│   │               print(f"{Fore.LIGHTBLACK_EX}   🎚️  Mastering Track {track_num}: {title}")
+│   │   
+│   │               # 2. Load & Normalize Audio
+│   │               try:
+│   │                   rate, audio = self._load_wav(wav_path)
+│   │                   norm_audio = self.normalize_audio(audio)
+│   │   
+│   │                   # 3. Save to Distribution Folder (Clean Name)
+│   │                   final_filename = f"{track_num:02d}_{safe_title}.wav"
+│   │                   final_path = self.dist_path / final_filename
+│   │   
+│   │                   self._save_wav(final_path, rate, norm_audio)
+│   │   
+│   │               except Exception as e:
+│   │                   print(f"{Fore.RED}      Error processing audio: {e}")
+│   │                   continue
+│   │   
+│   │               # 4. Append to Metadata List
+│   │               cleaned_metadata.append(data)
+│   │   
+│   │           # 5. Generate Master Analytics
+│   │           analytics = self.generate_analytics(cleaned_metadata)
+│   │   
+│   │           # 6. Save Master JSON
+│   │           master_release = {
+│   │               "album_name": self.album_path.name.replace("ALBUM_", "").replace("_", " "),
+│   │               "analytics": analytics,
+│   │               "tracks": cleaned_metadata
+│   │           }
+│   │   
+│   │           with open(self.dist_path / "MASTER_RELEASE_LOG.json", "w") as f:
+│   │               json.dump(master_release, f, indent=4)
+│   │   
+│   │           print(f"\n{Fore.GREEN}✨ ALBUM MASTERED SUCCESSFULLY!")
+│   │           print(f"📂 Output: {self.dist_path}")
+│   │           print(f"📊 Stats: {analytics['total_runtime_formatted']} | {analytics['vocabulary_size']} unique words")
+│   │   
+│   │   
+│   │   # --- STANDALONE RUNNER ---
+│   │   if __name__ == "__main__":
+│   │       from orphio_config import conf
+│   │   
+│   │       # Simple menu to pick an album to process
+│   │       albums = [d for d in conf.OUTPUT_DIR.iterdir() if d.is_dir() and "ALBUM_" in d.name]
+│   │   
+│   │       if not albums:
+│   │           print(f"{Fore.RED}No albums found in {conf.OUTPUT_DIR}")
+│   │       else:
+│   │           print(f"{Fore.WHITE}Select Album to Master:")
+│   │           for i, alb in enumerate(albums):
+│   │               print(f"[{i + 1}] {alb.name}")
+│   │   
+│   │           choice = int(input("Number: ")) - 1
+│   │   
+│   │           processor = AlbumPostProcessor(albums[choice])
+│   │           processor.process_album()
+│   │   
+│   ├── Blueprint_Executor.py  [Mod: 2026-02-13 08:32:49]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │   
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try:
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except:
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   import json
+│   │   import re
+│   │   import time
+│   │   import os
+│   │   from pathlib import Path
+│   │   from colorama import Fore, Style, init
+│   │   
+│   │   from orphio_config import conf
+│   │   from lmstudio_controler import LMStudioController
+│   │   from orphio_engine import OrphioEngine
+│   │   
+│   │   # Initialize colorama for Green/Black console output
+│   │   init(autoreset=True)
+│   │   
+│   │   
+│   │   class ProducerBlueprintEngine:
+│   │       def __init__(self):
+│   │           self.lms = LMStudioController(conf.LM_STUDIO_URL)
+│   │           self.engine = OrphioEngine(log_callback=print)
+│   │           # Point to the strategies folder
+│   │           self.strategies_path = Path(__file__).parent / "PRODUCER_STRATEGIES"
+│   │           self.strategies_path.mkdir(parents=True, exist_ok=True)
+│   │   
+│   │       def list_producers(self):
+│   │           """
+│   │           DYNAMIC SCANNER: Scans the PRODUCER_STRATEGIES folder.
+│   │           Ensures all .json files (1, 2, 3, 4) are loaded and sorted.
+│   │           """
+│   │           # Sort files by name so 1_ comes before 4_
+│   │           files = sorted(list(self.strategies_path.glob("*.json")))
+│   │           producers_data = []
+│   │   
+│   │           for f in files:
+│   │               try:
+│   │                   with open(f, 'r', encoding='utf-8') as j:
+│   │                       data = json.load(j)
+│   │                       producers_data.append({
+│   │                           "path": f,
+│   │                           "name": data.get("name", f.stem.replace("_", " ")),
+│   │                           "desc": data.get("description", "Dynamic Strategy"),
+│   │                           "file_id": f.stem
+│   │                       })
+│   │               except Exception as e:
+│   │                   print(f"{Fore.RED}⚠️ Error loading blueprint {f.name}: {e}")
+│   │                   continue
+│   │   
+│   │           return producers_data
+│   │   
+│   │       def load_blueprint(self, filepath):
+│   │           """Loads a specific JSON blueprint file."""
+│   │           with open(filepath, 'r', encoding='utf-8') as f:
+│   │               return json.load(f)
+│   │   
+│   │       def _extract_json_from_response(self, text):
+│   │           """Helper to extract JSON from LLM markdown responses."""
+│   │           try:
+│   │               clean_text = text.replace("```json", "").replace("```", "").strip()
+│   │               return json.loads(clean_text)
+│   │           except:
+│   │               match = re.search(r'\{.*\}', text, re.DOTALL)
+│   │               if match:
+│   │                   try:
+│   │                       return json.loads(match.group(0))
+│   │                   except:
+│   │                       return None
+│   │           return None
+│   │   
+│   │       def stage_1_draft_content(self, blueprint, user_topic, user_track_count=None, tag_mode="AI", manual_tags=None):
+│   │           """
+│   │           PHASE 1: Planning and Lyric Generation.
+│   │           Propagates Album Title, Theme, and Sequence Context to every song.
+│   │           """
+│   │           print(f"\n{Fore.GREEN}╔════════════════════════════════════════════════╗")
+│   │           print(f"{Fore.GREEN}║  📝 PHASE 1: CONTENT DRAFTING & PROPAGATION   ║")
+│   │           print(f"{Fore.GREEN}╚════════════════════════════════════════════════╝")
+│   │   
+│   │           # 1. Determine Track Count
+│   │           target_count = blueprint['executive_strategy'].get('track_count', 3)
+│   │           if user_track_count and user_track_count > 0:
+│   │               target_count = user_track_count
+│   │   
+│   │           # 2. Executive Producer Plans the Album
+│   │           exec_prompt = (
+│   │               f"{blueprint['executive_strategy']['system_prompt']}\n"
+│   │               f"USER CONCEPT: {user_topic}\n"
+│   │               f"MANDATORY: Plan exactly {target_count} songs.\n"
+│   │               "FORMAT: JSON with 'album_title', 'album_theme_summary', and 'tracklist' (array of objects with 'title' and 'scene_description')."
+│   │           )
+│   │   
+│   │           print(f"{Fore.GREEN}🧠 [PRODUCER] Blueprinting the album structure...")
+│   │           plan_raw = self.lms.chat("You are a Master Executive Music Producer.", exec_prompt)
+│   │           plan = self._extract_json_from_response(plan_raw)
+│   │   
+│   │           if not plan:
+│   │               print(f"{Fore.RED}❌ Failed to plan album. LLM output was not valid JSON.")
+│   │               return None
+│   │   
+│   │           album_title = plan.get('album_title', 'Untitled Project')
+│   │           album_theme = plan.get('album_theme_summary', user_topic)
+│   │           track_list = plan.get('tracklist', [])
+│   │           total_tracks = len(track_list)
+│   │   
+│   │           print(f"{Fore.GREEN}✅ [PLAN READY] {album_title} | {total_tracks} tracks")
+│   │   
+│   │           # Create Album Directory
+│   │           safe_album_title = "".join([c for c in album_title if c.isalnum() or c in " _-"]).strip().replace(" ", "_")
+│   │           album_dir = conf.OUTPUT_DIR / f"ALBUM_{safe_album_title}"
+│   │           album_dir.mkdir(parents=True, exist_ok=True)
+│   │   
+│   │           # Save Manifest for reference
+│   │           with open(album_dir / "00_ALBUM_MANIFEST.json", "w", encoding='utf-8') as f:
+│   │               json.dump(plan, f, indent=4)
+│   │   
+│   │           context_history = []
+│   │   
+│   │           # 3. Iterative Generation Loop
+│   │           for i, track in enumerate(track_list):
+│   │               current_num = i + 1
+│   │               t_title = track.get('title', f"Track {current_num}")
+│   │               t_description = track.get('scene_description', "Atmospheric development.")
+│   │   
+│   │               print(f"\n{Fore.GREEN}✍️  Drafting Song {current_num}/{total_tracks}: {t_title}")
+│   │   
+│   │               # Prepare Sequence Context (Narrative Flow)
+│   │               prev_context_text = context_history[-1]['summary'] if context_history else "This is the opening track."
+│   │   
+│   │               # Inject Blueprint Logic
+│   │               template = blueprint['propagation_logic']['lyric_instruction_template']
+│   │               smart_prompt = template.replace("{album_title}", album_title) \
+│   │                   .replace("{album_theme}", album_theme) \
+│   │                   .replace("{track_title}", t_title) \
+│   │                   .replace("{track_num}", str(current_num)) \
+│   │                   .replace("{total_tracks}", str(total_tracks)) \
+│   │                   .replace("{scene_description}", t_description) \
+│   │                   .replace("{prev_context}", prev_context_text)
+│   │   
+│   │               # 4. Generate Lyrics
+│   │               lyrics = self.lms.chat(conf.PROMPT_WRITER, smart_prompt)
+│   │               lyrics = self.engine._enforce_tag_schema(lyrics)
+│   │   
+│   │               # 5. Generate Tags
+│   │               if tag_mode == "MANUAL":
+│   │                   tags = manual_tags if manual_tags else ["Electronic"]
+│   │               else:
+│   │                   try:
+│   │                       print(f"{Fore.GREEN}   🏷️  Analyzing genre and vibe...")
+│   │                       tags_raw = self.lms.chat(conf.PROMPT_TAGGER, f"Album: {album_title}\nLyrics: {lyrics}", temp=0.2)
+│   │                       tags = self.engine._clean_tags_list(tags_raw)
+│   │                   except Exception:
+│   │                       tags = ["melodic", "modern", album_title.split()[0]]
+│   │   
+│   │               print(f"{Fore.WHITE}   Final Style: {', '.join(tags)}")
+│   │   
+│   │               # 6. Save Draft Ledger
+│   │               draft_data = {
+│   │                   "track_number": current_num,
+│   │                   "total_tracks": total_tracks,
+│   │                   "album_title": album_title,
+│   │                   "title": t_title,
+│   │                   "status": "DRAFT_READY",
+│   │                   "parameters": {
+│   │                       "topic": t_title,
+│   │                       "lyrics": lyrics,
+│   │                       "tags": tags,
+│   │                       "scene": t_description
+│   │                   }
+│   │               }
+│   │   
+│   │               safe_title = "".join([c for c in t_title if c.isalnum() or c in " _-"]).replace(" ", "_")
+│   │               fname = f"{current_num:02d}_{safe_title}_DRAFT.json"
+│   │               with open(album_dir / fname, "w", encoding='utf-8') as f:
+│   │                   json.dump(draft_data, f, indent=4)
+│   │   
+│   │               # Update context for the next song (first 200 chars of current lyrics)
+│   │               summary = lyrics.replace("\n", " ")
+│   │               context_history.append({"summary": summary[:200] + "..."})
+│   │               time.sleep(1.0)
+│   │   
+│   │           return album_dir
+│   │   
+│   │       def stage_2_batch_render(self, album_dir, user_duration, cfg_scale=1.5):
+│   │           """
+│   │           PHASE 2: Batch Audio Rendering.
+│   │           """
+│   │           album_dir = Path(album_dir)
+│   │           drafts = sorted(list(album_dir.glob("*_DRAFT.json")))
+│   │   
+│   │           print(f"\n{Fore.GREEN}╔════════════════════════════════════════════════╗")
+│   │           print(f"{Fore.GREEN}║  🔊 PHASE 2: BATCH AUDIO RENDERING             ║")
+│   │           print(f"{Fore.GREEN}╚════════════════════════════════════════════════╝")
+│   │   
+│   │           for idx, json_file in enumerate(drafts):
+│   │               try:
+│   │                   with open(json_file, 'r', encoding='utf-8') as f:
+│   │                       data = json.load(f)
+│   │   
+│   │                   params = data.get("parameters", {})
+│   │                   self.engine.free_memory()
+│   │   
+│   │                   print(f"{Fore.GREEN}🚀 Rendering [{idx + 1}/{len(drafts)}]: {data.get('title')}")
+│   │   
+│   │                   wav_path, ledger = self.engine.render_audio_stage(
+│   │                       topic=data.get("title"),
+│   │                       lyrics=params.get("lyrics"),
+│   │                       tags=params.get("tags"),
+│   │                       duration_s=user_duration,
+│   │                       cfg=cfg_scale,
+│   │                       temp=1.0
+│   │                   )
+│   │   
+│   │                   # Rename to final clean naming convention
+│   │                   dest_wav_name = json_file.name.replace("_DRAFT.json", ".wav")
+│   │                   dest_json_name = json_file.name.replace("_DRAFT.json", ".json")
+│   │   
+│   │                   if Path(wav_path).exists():
+│   │                       Path(wav_path).rename(album_dir / dest_wav_name)
+│   │                       ledger_source = Path(wav_path).with_suffix('.json')
+│   │                       if ledger_source.exists():
+│   │                           ledger_source.rename(album_dir / dest_json_name)
+│   │   
+│   │                   os.remove(json_file)  # Remove draft once rendered
+│   │                   print(f"{Fore.GREEN}   ✅ Finished Production: {dest_wav_name}")
+│   │   
+│   │               except Exception as e:
+│   │                   print(f"{Fore.RED}❌ Batch Render Error on {json_file.name}: {e}")
+│   │   
+│   │       def execute_album(self, blueprint, user_topic, user_duration=120, user_track_count=None):
+│   │           """Full Pipeline Orchestrator."""
+│   │           album_path = self.stage_1_draft_content(blueprint, user_topic, user_track_count)
+│   │           if album_path:
+│   │               self.stage_2_batch_render(album_path, user_duration)
+│   │               return album_path
+│   │           return None
+│   │   
+│   ├── EnhancedModelScanner.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   """
+│   │   ENHANCED LM STUDIO MODEL SCANNER
+│   │   =================================
+│   │   Scans LM Studio for available models and analyzes their capabilities
+│   │   """
+│   │   
+│   │   import requests
+│   │   import json
+│   │   import re
+│   │   from pathlib import Path
+│   │   from typing import Dict, List, Tuple
+│   │   from colorama import Fore, init
+│   │   
+│   │   init(autoreset=True)
+│   │   
+│   │   
+│   │   class EnhancedModelScanner:
+│   │       """Enhanced scanner for LM Studio models with capability detection"""
+│   │       
+│   │       # Model capability patterns
+│   │       CAPABILITY_PATTERNS = {
+│   │           "reasoning": [r"reasoning", r"deepseek", r"r1", r"cot", r"think", r"distill"],
+│   │           "creative": [r"story", r"creative", r"writer", r"lumimaid", r"mythomax"],
+│   │           "uncensored": [r"uncensored", r"abliterated", r"dolphin", r"hermes", r"psyfighter"],
+│   │           "code": [r"code", r"coder", r"deepseek-coder", r"wizard"],
+│   │           "multilingual": [r"multilingual", r"qwen", r"aya"],
+│   │           "instruct": [r"instruct", r"chat", r"hermes"],
+│   │           "fast": [r"fast", r"speed", r"tiny", r"small"],
+│   │           "large": [r"70b", r"72b", r"405b", r"mixtral"]
+│   │       }
+│   │       
+│   │       def __init__(self, base_url="http://localhost:1234/v1"):
+│   │           self.base_url = base_url.rstrip('/')
+│   │       
+│   │       def check_connection(self) -> Tuple[bool, str]:
+│   │           """Check if LM Studio is running and accessible"""
+│   │           try:
+│   │               response = requests.get(f"{self.base_url}/models", timeout=3)
+│   │               if response.status_code == 200:
+│   │                   return True, "Connected to LM Studio"
+│   │               return False, f"HTTP Error {response.status_code}"
+│   │           except requests.exceptions.ConnectionError:
+│   │               return False, "Connection refused - Is LM Studio server running?"
+│   │           except Exception as e:
+│   │               return False, str(e)
+│   │       
+│   │       def get_loaded_model(self) -> Dict:
+│   │           """Get currently loaded model information"""
+│   │           try:
+│   │               response = requests.get(f"{self.base_url}/models", timeout=3)
+│   │               if response.status_code == 200:
+│   │                   data = response.json()
+│   │                   if data.get('data') and len(data['data']) > 0:
+│   │                       model = data['data'][0]
+│   │                       return {
+│   │                           'id': model.get('id', 'unknown'),
+│   │                           'owned_by': model.get('owned_by', 'unknown'),
+│   │                           'created': model.get('created', 0),
+│   │                           'object': model.get('object', 'model'),
+│   │                           'status': 'loaded'
+│   │                       }
+│   │           except Exception as e:
+│   │               print(f"{Fore.RED}Error getting loaded model: {e}")
+│   │           
+│   │           return None
+│   │       
+│   │       def detect_capabilities(self, model_id: str) -> List[str]:
+│   │           """Detect model capabilities based on name patterns"""
+│   │           model_lower = model_id.lower()
+│   │           capabilities = []
+│   │           
+│   │           for capability, patterns in self.CAPABILITY_PATTERNS.items():
+│   │               if any(re.search(pattern, model_lower) for pattern in patterns):
+│   │                   capabilities.append(capability)
+│   │           
+│   │           # Add defaults if nothing detected
+│   │           if not capabilities:
+│   │               capabilities.append("general")
+│   │           
+│   │           return capabilities
+│   │       
+│   │       def estimate_size(self, model_id: str) -> str:
+│   │           """Estimate model size from name"""
+│   │           model_lower = model_id.lower()
+│   │           
+│   │           # Look for size indicators
+│   │           if any(x in model_lower for x in ['70b', '72b']):
+│   │               return "~40-50GB"
+│   │           elif any(x in model_lower for x in ['30b', '34b']):
+│   │               return "~20-25GB"
+│   │           elif any(x in model_lower for x in ['13b', '14b']):
+│   │               return "~8-10GB"
+│   │           elif any(x in model_lower for x in ['7b', '8b']):
+│   │               return "~4-6GB"
+│   │           elif any(x in model_lower for x in ['3b']):
+│   │               return "~2-3GB"
+│   │           elif any(x in model_lower for x in ['1b']):
+│   │               return "~1GB"
+│   │           else:
+│   │               return "Unknown"
+│   │       
+│   │       def get_model_info(self, model_id: str) -> Dict:
+│   │           """Get comprehensive model information"""
+│   │           capabilities = self.detect_capabilities(model_id)
+│   │           size = self.estimate_size(model_id)
+│   │           
+│   │           # Determine optimal use case
+│   │           if "reasoning" in capabilities:
+│   │               use_case = "Complex lyrics, narrative coherence"
+│   │           elif "creative" in capabilities:
+│   │               use_case = "Creative lyrics, storytelling"
+│   │           elif "uncensored" in capabilities:
+│   │               use_case = "Unrestricted content, mature themes"
+│   │           elif "fast" in capabilities:
+│   │               use_case = "Quick generation, drafting"
+│   │           else:
+│   │               use_case = "General purpose lyrics"
+│   │           
+│   │           return {
+│   │               'id': model_id,
+│   │               'capabilities': capabilities,
+│   │               'estimated_size': size,
+│   │               'recommended_use': use_case,
+│   │               'quality_rating': self._estimate_quality(model_id, capabilities)
+│   │           }
+│   │       
+│   │       def _estimate_quality(self, model_id: str, capabilities: List[str]) -> str:
+│   │           """Estimate model quality tier"""
+│   │           model_lower = model_id.lower()
+│   │           
+│   │           # High-end models
+│   │           if any(x in model_lower for x in ['70b', '72b', 'qwen-2.5']):
+│   │               return "Excellent"
+│   │           
+│   │           # Mid-tier
+│   │           elif any(x in model_lower for x in ['30b', '34b', 'mixtral']):
+│   │               return "Very Good"
+│   │           
+│   │           # Standard
+│   │           elif any(x in model_lower for x in ['13b', '14b']):
+│   │               return "Good"
+│   │           
+│   │           # Small but capable
+│   │           elif "reasoning" in capabilities or "creative" in capabilities:
+│   │               return "Good"
+│   │           
+│   │           # Basic
+│   │           else:
+│   │               return "Adequate"
+│   │       
+│   │       def scan_and_report(self) -> Dict:
+│   │           """Perform full scan and generate report"""
+│   │           print(f"\n{Fore.CYAN}{'=' * 70}")
+│   │           print(f"{Fore.CYAN}  LM STUDIO MODEL SCANNER - Enhanced Edition")
+│   │           print(f"{Fore.CYAN}{'=' * 70}\n")
+│   │           
+│   │           # Check connection
+│   │           ok, msg = self.check_connection()
+│   │           print(f"Connection Status: ", end="")
+│   │           if ok:
+│   │               print(f"{Fore.GREEN}✓ {msg}")
+│   │           else:
+│   │               print(f"{Fore.RED}✗ {msg}")
+│   │               return {'status': 'error', 'message': msg}
+│   │           
+│   │           # Get loaded model
+│   │           loaded_model = self.get_loaded_model()
+│   │           
+│   │           if not loaded_model:
+│   │               print(f"{Fore.YELLOW}No model currently loaded")
+│   │               return {'status': 'no_model', 'message': 'No model loaded'}
+│   │           
+│   │           model_id = loaded_model['id']
+│   │           print(f"\n{Fore.WHITE}Currently Loaded Model:")
+│   │           print(f"{Fore.CYAN}  ID: {Fore.WHITE}{model_id}")
+│   │           
+│   │           # Analyze model
+│   │           info = self.get_model_info(model_id)
+│   │           
+│   │           print(f"{Fore.CYAN}  Size: {Fore.WHITE}{info['estimated_size']}")
+│   │           print(f"{Fore.CYAN}  Quality: {Fore.WHITE}{info['quality_rating']}")
+│   │           print(f"{Fore.CYAN}  Best For: {Fore.WHITE}{info['recommended_use']}")
+│   │           
+│   │           # Capabilities
+│   │           print(f"\n{Fore.WHITE}Detected Capabilities:")
+│   │           for cap in info['capabilities']:
+│   │               icon = {
+│   │                   'reasoning': '🧠',
+│   │                   'creative': '✨',
+│   │                   'uncensored': '🔓',
+│   │                   'code': '💻',
+│   │                   'fast': '⚡',
+│   │                   'large': '🐘',
+│   │                   'instruct': '📋',
+│   │                   'multilingual': '🌐',
+│   │                   'general': '🤖'
+│   │               }.get(cap, '•')
+│   │               print(f"  {icon} {cap.capitalize()}")
+│   │           
+│   │           # Recommendations
+│   │           print(f"\n{Fore.YELLOW}Recommendations for Music Production:")
+│   │           if "reasoning" in info['capabilities']:
+│   │               print(f"  {Fore.GREEN}✓ Excellent for narrative albums")
+│   │               print(f"  {Fore.GREEN}✓ Good at maintaining story coherence")
+│   │           
+│   │           if "creative" in info['capabilities']:
+│   │               print(f"  {Fore.GREEN}✓ Great for original lyrics")
+│   │               print(f"  {Fore.GREEN}✓ Good at metaphors and imagery")
+│   │           
+│   │           if "fast" in info['capabilities']:
+│   │               print(f"  {Fore.GREEN}✓ Quick draft generation")
+│   │               print(f"  {Fore.YELLOW}⚠ May need more editing")
+│   │           
+│   │           if info['quality_rating'] in ['Excellent', 'Very Good']:
+│   │               print(f"  {Fore.GREEN}✓ High-quality output expected")
+│   │           
+│   │           print(f"\n{Fore.CYAN}{'=' * 70}\n")
+│   │           
+│   │           return {
+│   │               'status': 'success',
+│   │               'model': info
+│   │           }
+│   │       
+│   │       def save_scan_results(self, output_file: str = "model_scan_results.json"):
+│   │           """Save scan results to JSON file"""
+│   │           loaded_model = self.get_loaded_model()
+│   │           if not loaded_model:
+│   │               return False
+│   │           
+│   │           info = self.get_model_info(loaded_model['id'])
+│   │           
+│   │           scan_data = {
+│   │               'scan_timestamp': str(Path.cwd()),
+│   │               'lm_studio_url': self.base_url,
+│   │               'model': info
+│   │           }
+│   │           
+│   │           try:
+│   │               with open(output_file, 'w') as f:
+│   │                   json.dump(scan_data, f, indent=2)
+│   │               print(f"{Fore.GREEN}✓ Scan results saved to: {output_file}")
+│   │               return True
+│   │           except Exception as e:
+│   │               print(f"{Fore.RED}✗ Failed to save: {e}")
+│   │               return False
+│   │   
+│   │   
+│   │   def main():
+│   │       """Standalone scanner execution"""
+│   │       scanner = EnhancedModelScanner()
+│   │       result = scanner.scan_and_report()
+│   │       
+│   │       if result['status'] == 'success':
+│   │           # Ask if user wants to save
+│   │           save = input(f"\n{Fore.CYAN}Save scan results? (y/n): ").strip().lower()
+│   │           if save == 'y':
+│   │               scanner.save_scan_results()
+│   │   
+│   │   
+│   │   if __name__ == "__main__":
+│   │       main()
+│   │   
+│   ├── human_evaluation.py  [Mod: 2026-02-12 22:11:02]
+│   │   [Content omitted: Exceeds 20000 character limit]
+│   │   
+│   ├── IndividualSongRenderer.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   """
+│   │   INDIVIDUAL SONG RENDERER
+│   │   ========================
+│   │   Utility for rendering single songs from drafts with fine control
+│   │   """
+│   │   
+│   │   import json
+│   │   import sys
+│   │   import time
+│   │   from pathlib import Path
+│   │   from datetime import datetime
+│   │   from colorama import Fore, init
+│   │   
+│   │   init(autoreset=True)
+│   │   
+│   │   try:
+│   │       from orphio_config import conf
+│   │       from orphio_engine import OrphioEngine
+│   │   except ImportError:
+│   │       print(f"{Fore.RED}Error: Cannot import required modules.")
+│   │       print(f"{Fore.YELLOW}Make sure this script is in the AGANCY folder.")
+│   │       sys.exit(1)
+│   │   
+│   │   
+│   │   class IndividualSongRenderer:
+│   │       """Handles rendering of individual songs from draft files"""
+│   │       
+│   │       def __init__(self):
+│   │           self.engine = OrphioEngine(log_callback=self.log)
+│   │           
+│   │       def log(self, message, color="white"):
+│   │           """Print colored log message"""
+│   │           colors = {
+│   │               "red": Fore.RED,
+│   │               "green": Fore.GREEN,
+│   │               "yellow": Fore.YELLOW,
+│   │               "cyan": Fore.CYAN,
+│   │               "magenta": Fore.MAGENTA,
+│   │               "white": Fore.WHITE
+│   │           }
+│   │           color_code = colors.get(color, Fore.WHITE)
+│   │           timestamp = datetime.now().strftime("%H:%M:%S")
+│   │           print(f"{color_code}[{timestamp}] {message}")
+│   │       
+│   │       def find_albums(self):
+│   │           """Find all album directories"""
+│   │           return [d for d in conf.OUTPUT_DIR.iterdir() if d.is_dir() and "ALBUM_" in d.name]
+│   │       
+│   │       def find_drafts_in_album(self, album_dir):
+│   │           """Find all draft files in an album"""
+│   │           return sorted(list(Path(album_dir).glob("*_DRAFT.json")))
+│   │       
+│   │       def load_draft(self, draft_file):
+│   │           """Load draft data from file"""
+│   │           try:
+│   │               with open(draft_file, 'r', encoding='utf-8') as f:
+│   │                   return json.load(f)
+│   │           except Exception as e:
+│   │               self.log(f"Error loading draft: {e}", "red")
+│   │               return None
+│   │       
+│   │       def render_song(self, draft_file, duration=120, cfg_scale=1.5):
+│   │           """Render a single song from draft"""
+│   │           self.log(f"Loading draft: {draft_file.name}", "cyan")
+│   │           
+│   │           draft_data = self.load_draft(draft_file)
+│   │           if not draft_data:
+│   │               return False
+│   │           
+│   │           # Extract parameters
+│   │           params = draft_data.get("parameters", {})
+│   │           title = draft_data.get("title", "Untitled")
+│   │           lyrics = params.get("lyrics", "")
+│   │           tags = params.get("tags", [])
+│   │           
+│   │           if not lyrics:
+│   │               self.log("No lyrics found in draft!", "red")
+│   │               return False
+│   │           
+│   │           self.log(f"Title: {title}", "white")
+│   │           self.log(f"Tags: {', '.join(tags)}", "yellow")
+│   │           self.log(f"Duration: {duration}s, CFG: {cfg_scale}", "yellow")
+│   │           
+│   │           # Render
+│   │           try:
+│   │               self.log("Starting audio generation...", "magenta")
+│   │               self.engine.free_memory()
+│   │               
+│   │               wav_path, ledger = self.engine.render_audio_stage(
+│   │                   topic=title,
+│   │                   lyrics=lyrics,
+│   │                   tags=tags,
+│   │                   duration_s=duration,
+│   │                   cfg=cfg_scale,
+│   │                   temp=1.0
+│   │               )
+│   │               
+│   │               # Move rendered file to album directory
+│   │               album_dir = draft_file.parent
+│   │               safe_title = "".join([c for c in title if c.isalnum() or c in " _-"]).replace(" ", "_")
+│   │               track_num = draft_data.get("track_number", 1)
+│   │               
+│   │               final_wav = album_dir / f"{track_num:02d}_{safe_title}.wav"
+│   │               final_json = album_dir / f"{track_num:02d}_{safe_title}.json"
+│   │               
+│   │               # Move files
+│   │               if Path(wav_path).exists():
+│   │                   Path(wav_path).rename(final_wav)
+│   │                   self.log(f"✓ Audio saved: {final_wav.name}", "green")
+│   │               
+│   │               json_path = Path(wav_path).with_suffix('.json')
+│   │               if json_path.exists():
+│   │                   json_path.rename(final_json)
+│   │                   self.log(f"✓ Ledger saved: {final_json.name}", "green")
+│   │               
+│   │               # Delete draft file
+│   │               draft_file.unlink()
+│   │               self.log(f"✓ Removed draft: {draft_file.name}", "yellow")
+│   │               
+│   │               return True
+│   │               
+│   │           except Exception as e:
+│   │               self.log(f"✗ Render failed: {str(e)}", "red")
+│   │               import traceback
+│   │               traceback.print_exc()
+│   │               return False
+│   │       
+│   │       def interactive_select_and_render(self):
+│   │           """Interactive mode to select and render a song"""
+│   │           print(f"\n{Fore.CYAN}{'=' * 70}")
+│   │           print(f"{Fore.CYAN}  INDIVIDUAL SONG RENDERER")
+│   │           print(f"{Fore.CYAN}{'=' * 70}\n")
+│   │           
+│   │           # Find albums
+│   │           albums = self.find_albums()
+│   │           
+│   │           if not albums:
+│   │               self.log("No albums found!", "red")
+│   │               return
+│   │           
+│   │           # Select album
+│   │           print(f"{Fore.WHITE}Available Albums:")
+│   │           for i, album in enumerate(albums, 1):
+│   │               draft_count = len(list(album.glob("*_DRAFT.json")))
+│   │               print(f"  {Fore.YELLOW}[{i}]{Fore.WHITE} {album.name} {Fore.CYAN}({draft_count} drafts)")
+│   │           
+│   │           try:
+│   │               album_choice = int(input(f"\n{Fore.GREEN}Select album number: ")) - 1
+│   │               if album_choice < 0 or album_choice >= len(albums):
+│   │                   raise ValueError
+│   │           except (ValueError, KeyboardInterrupt):
+│   │               self.log("Invalid selection or cancelled", "red")
+│   │               return
+│   │           
+│   │           selected_album = albums[album_choice]
+│   │           drafts = self.find_drafts_in_album(selected_album)
+│   │           
+│   │           if not drafts:
+│   │               self.log("No drafts found in this album!", "red")
+│   │               return
+│   │           
+│   │           # Select draft
+│   │           print(f"\n{Fore.WHITE}Available Drafts:")
+│   │           for i, draft in enumerate(drafts, 1):
+│   │               draft_data = self.load_draft(draft)
+│   │               if draft_data:
+│   │                   title = draft_data.get("title", "Unknown")
+│   │                   status = draft_data.get("status", "DRAFT")
+│   │                   print(f"  {Fore.YELLOW}[{i}]{Fore.WHITE} {title} {Fore.CYAN}[{status}]")
+│   │           
+│   │           print(f"  {Fore.YELLOW}[0]{Fore.WHITE} Render ALL drafts")
+│   │           
+│   │           try:
+│   │               draft_choice = int(input(f"\n{Fore.GREEN}Select draft number (0 for all): "))
+│   │               if draft_choice < 0 or draft_choice > len(drafts):
+│   │                   raise ValueError
+│   │           except (ValueError, KeyboardInterrupt):
+│   │               self.log("Invalid selection or cancelled", "red")
+│   │               return
+│   │           
+│   │           # Get render settings
+│   │           print(f"\n{Fore.WHITE}Render Settings:")
+│   │           try:
+│   │               duration = int(input(f"{Fore.CYAN}Duration (seconds) [120]: ") or "120")
+│   │               cfg_input = input(f"{Fore.CYAN}CFG Scale (1.0-3.0) [1.5]: ") or "1.5"
+│   │               cfg_scale = float(cfg_input)
+│   │           except ValueError:
+│   │               self.log("Invalid settings, using defaults", "yellow")
+│   │               duration = 120
+│   │               cfg_scale = 1.5
+│   │           
+│   │           # Render
+│   │           if draft_choice == 0:
+│   │               # Render all
+│   │               self.log(f"\nRendering ALL {len(drafts)} songs...", "cyan")
+│   │               success_count = 0
+│   │               
+│   │               for i, draft in enumerate(drafts, 1):
+│   │                   self.log(f"\n--- Song {i}/{len(drafts)} ---", "white")
+│   │                   if self.render_song(draft, duration, cfg_scale):
+│   │                       success_count += 1
+│   │                   time.sleep(2)  # Brief pause between renders
+│   │               
+│   │               self.log(f"\n✓ Completed: {success_count}/{len(drafts)} songs rendered", "green")
+│   │           else:
+│   │               # Render single
+│   │               selected_draft = drafts[draft_choice - 1]
+│   │               self.render_song(selected_draft, duration, cfg_scale)
+│   │           
+│   │           print(f"\n{Fore.CYAN}{'=' * 70}\n")
+│   │   
+│   │   
+│   │   def main():
+│   │       """Main entry point"""
+│   │       renderer = IndividualSongRenderer()
+│   │       renderer.interactive_select_and_render()
+│   │   
+│   │   
+│   │   if __name__ == "__main__":
+│   │       main()
+│   │   
+│   ├── lmstudio_controler.py  [Mod: 2026-02-13 09:14:39]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   # AGANCY/lmstudio_controler.py
+│   │   import requests
+│   │   import json
+│   │   import re
+│   │   from colorama import Fore, Style
+│   │   
+│   │   
+│   │   class LMStudioController:
+│   │       def __init__(self, base_url):
+│   │           self.base_url = base_url.rstrip('/')
+│   │   
+│   │       def get_active_model(self):
+│   │           """Fetches the exact ID of the currently loaded model from LM Studio."""
+│   │           try:
+│   │               res = requests.get(f"{self.base_url}/models", timeout=2)
+│   │               if res.status_code == 200:
+│   │                   data = res.json()
+│   │                   if data.get('data') and len(data['data']) > 0:
+│   │                       return data['data'][0]['id']
+│   │           except:
+│   │               pass
+│   │           return "local-model"
+│   │   
+│   │       def check_connection(self):
+│   │           """Returns (bool, message) regarding connection status."""
+│   │           try:
+│   │               model_id = self.get_active_model()
+│   │               res = requests.get(f"{self.base_url}/models", timeout=3)
+│   │               if res.status_code == 200:
+│   │                   return True, f"Connected: {model_id}"
+│   │               return False, f"HTTP Error {res.status_code}"
+│   │           except requests.exceptions.ConnectionError:
+│   │               return False, "Connection Refused (Is LM Studio Server ON?)"
+│   │           except Exception as e:
+│   │               return False, str(e)
+│   │   
+│   │       def detect_and_clean_reasoning(self, content):
+│   │           """
+│   │           SMART DETECTOR: Removes DeepSeek/R1 <think> blocks and handles
+│   │           <|begin_of_box|> artifacts to ensure only the final lyrics remain.
+│   │           """
+│   │           original_len = len(content)
+│   │   
+│   │           # 1. Remove DeepSeek / Chain-of-Thought <think> blocks
+│   │           # re.DOTALL is crucial here to match newlines inside the thought block
+│   │           content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL | re.IGNORECASE)
+│   │           content = re.sub(r'<thought>.*?</thought>', '', content, flags=re.DOTALL | re.IGNORECASE)
+│   │   
+│   │           # 2. Handle "Boxed" output (Common in R1 distillations)
+│   │           # If the model wraps the final answer in box tags, we ONLY want what's inside.
+│   │           if "<|begin_of_box|>" in content:
+│   │               # Split and take everything AFTER the begin tag
+│   │               content = content.split("<|begin_of_box|>")[-1]
+│   │   
+│   │           if "<|end_of_box|>" in content:
+│   │               # Split and take everything BEFORE the end tag
+│   │               content = content.split("<|end_of_box|>")[0]
+│   │   
+│   │           # 3. Clean up Markdown code blocks if the model wrapped lyrics in ```
+│   │           content = content.replace("```json", "").replace("```lyrics", "").replace("```", "")
+│   │   
+│   │           content = content.strip()
+│   │   
+│   │           if len(content) < original_len:
+│   │               print(f"{Fore.YELLOW}   🧹 Scrubbed {original_len - len(content)} chars of 'Thinking'/'System' tokens.")
+│   │   
+│   │           return content
+│   │   
+│   │       def chat(self, system_prompt, user_content, temp=0.7):
+│   │           """
+│   │           Sends a chat request. Includes reasoning detection and
+│   │           extended timeouts for slow models.
+│   │           """
+│   │           model_id = self.get_active_model()
+│   │   
+│   │           payload = {
+│   │               "model": model_id,
+│   │               "messages": [
+│   │                   {"role": "system", "content": system_prompt},
+│   │                   {"role": "user", "content": user_content}
+│   │               ],
+│   │               "temperature": temp,
+│   │               "stream": False,
+│   │               "max_tokens": -1
+│   │           }
+│   │   
+│   │           try:
+│   │               # We set a long timeout (600s) because Reasoning models 'think'
+│   │               # for a long time before sending the first character.
+│   │               res = requests.post(
+│   │                   f"{self.base_url}/chat/completions",
+│   │                   json=payload,
+│   │                   timeout=600
+│   │               )
+│   │   
+│   │               # Retry with generic ID if specific ID fails
+│   │               if res.status_code == 400:
+│   │                   print(f"{Fore.YELLOW}⚠️  Retrying with generic 'local-model' ID...")
+│   │                   payload["model"] = "local-model"
+│   │                   res = requests.post(f"{self.base_url}/chat/completions", json=payload, timeout=600)
+│   │   
+│   │               if res.status_code != 200:
+│   │                   raise Exception(f"LM Studio Error {res.status_code}: {res.text}")
+│   │   
+│   │               data = res.json()
+│   │               raw_response = data['choices'][0]['message']['content'].strip()
+│   │               print(raw_response)
+│   │               # Pass through the Smart Detector
+│   │               processed_response = self.detect_and_clean_reasoning(raw_response)
+│   │   
+│   │               return processed_response
+│   │   
+│   │           except requests.exceptions.Timeout:
+│   │               print(f"{Fore.RED}❌ ERROR: LLM timed out after 10 minutes.")
+│   │               raise TimeoutError("The model took too long to think. Try a smaller model (Llama-3 8B).")
+│   │           except requests.exceptions.ConnectionError:
+│   │               raise ConnectionError("Lost connection to LM Studio. Ensure the server is RUNNING.")
+│   │           except Exception as e:
+│   │               print(f"{Fore.RED}LLM Chat Error: {e}")
+│   │               raise e
+│   │   
+│   │       def unload_model(self):
+│   │           """
+│   │           Attempts to unload the model to free VRAM for the Audio Engine.
+│   │           (Requires LM Studio SDK to be installed in the environment)
+│   │           """
+│   │           try:
+│   │               import lmstudio as lms
+│   │               lms.llm().unload()
+│   │               return True
+│   │           except:
+│   │               # Fallback: Many setups don't have the SDK, so we just return False
+│   │               # and let the engine handle VRAM clearing via torch.cuda.empty_cache()
+│   │               return False
+│   │   
+│   ├── Orphio_Command_Center2.py  [Mod: 2026-02-12 22:11:02]
+│   │   [Content omitted: Exceeds 20000 character limit]
+│   │   
+│   ├── Orphio_Command_Center3.py  [Mod: 2026-02-12 22:11:02]
+│   │   [Content omitted: Exceeds 20000 character limit]
+│   │   
+│   ├── orphio_config.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   # AGANCY/orphio_config.py
+│   │   import os
+│   │   import json
+│   │   from pathlib import Path
+│   │   from dataclasses import dataclass
+│   │   
+│   │   
+│   │   def find_actual_root():
+│   │       """Finds the folder containing the 'ckpt' directory."""
+│   │       current = Path(__file__).resolve()
+│   │       for parent in [current] + list(current.parents):
+│   │           if (parent / "ckpt").exists():
+│   │               return parent
+│   │       return Path(__file__).resolve().parent.parent
+│   │   
+│   │   
+│   │   @dataclass
+│   │   class Config:
+│   │       # ... (Keep your existing path definitions here) ...
+│   │       ROOT_DIR: Path = find_actual_root()
+│   │       CKPT_DIR: Path = ROOT_DIR / "ckpt"
+│   │       SRC_DIR: Path = ROOT_DIR / "src"
+│   │       OUTPUT_DIR: Path = ROOT_DIR / "GROUND_TRUTH_ComboAi" / "outputSongs_ComboAi"
+│   │       TAGS_FILE: Path = ROOT_DIR / "GROUND_TRUTH_ComboAi" / "tags.json"
+│   │   
+│   │       LM_STUDIO_URL: str = "http://localhost:1234/v1"
+│   │       COOLFOOT_WAIT: float = 0.1
+│   │       SAMPLE_RATE: int = 48000
+│   │       FADE_OUT_DURATION: float = 0.2
+│   │   
+│   │       CURRENT_DECORATOR_SCHEMA: str = "1_clean_standard"
+│   │   
+│   │       PROMPT_WRITER: str = (
+│   │           "You are a professional Songwriter. Write clean lyrics based on the user's topic.\n"
+│   │           "STRICT FORMATTING:\n"
+│   │           "1. Use UPPERCASE tags in brackets: [INTRO], [VERSE 1], [CHORUS], [BRIDGE], [OUTRO].\n"
+│   │           "2. Do NOT use markdown bolding (**).\n"
+│   │           "3. Write ONLY the lyrics and structure tags.\n"
+│   │           "4. Do not add any decorations yet."
+│   │       )
+│   │   
+│   │       PROMPT_TAGGER: str = (
+│   │           "You are a Metadata Specialist. Analyze the lyrics and select tags.\n"
+│   │           "STRICT RULES:\n"
+│   │           "1. Select ONE tag for 'GENRE' (Mandatory).\n"
+│   │           "2. Select tags for Timbre, Gender, Mood.\n"
+│   │           "3. Output a simple comma-separated list of words only.\n"
+│   │           "4. Example: Electronic, Dark, Female, Energetic, Synthesizer"
+│   │       )
+│   │   
+│   │       # =========================================================================
+│   │       #  DECORATION STRATEGIES (The "Secret Sauce" for Audio Gen)
+│   │       # =========================================================================
+│   │       DECORATOR_SCHEMAS = {
+│   │           "1_clean_standard": (
+│   │               "You are a Lyric Formatter. Output the lyrics exactly as they are.\n"
+│   │               "Ensure structure tags like [INTRO] and [CHORUS] are present.\n"
+│   │               "Do NOT add any symbols, visual effects, or parenthesis.\n"
+│   │               "Keep it clean."
+│   │           ),
+│   │   
+│   │           "2_sonic_flow_extended": (
+│   │               "You are a Vocal Arranger. Add symbols to control rhythm and duration.\n"
+│   │               "RULES:\n"
+│   │               "1. Add `...` (ellipses) where the singer should pause for breath.\n"
+│   │               "2. Add `~~~` (tildes) to the end of vowels to hold/elongate the note.\n"
+│   │               "3. Add `__` (underscores) between words that should be sung quickly together.\n"
+│   │               "4. Keep the [TAGS] intact.\n"
+│   │               "EXAMPLE:\n"
+│   │               "The night is yoooooung~~~\n"
+│   │               "But we are... running__out__of__time..."
+│   │           ),
+│   │   
+│   │           "3_dynamic_performer": (
+│   │               "You are a Drama Director. Add parenthetical performance instructions.\n"
+│   │               "RULES:\n"
+│   │               "1. Add (whisper), (shout), (gasp), (belting), or (spoken) before specific lines.\n"
+│   │               "2. Use `!` liberally for emphasis.\n"
+│   │               "3. Do not change the words, just add the mood instructions.\n"
+│   │               "EXAMPLE:\n"
+│   │               "[VERSE 1]\n"
+│   │               "(whisper) I hear them coming...\n"
+│   │               "(shout) BUT I WON'T RUN!"
+│   │           ),
+│   │   
+│   │           "4_glitch_stutter": (
+│   │               "You are an Electronic Music Producer. Apply 'glitch' effects to the text.\n"
+│   │               "RULES:\n"
+│   │               "1. Stutter the first letter of intense words (e.g., 'b-b-break').\n"
+│   │               "2. Repeat key phrases twice rapidly.\n"
+│   │               "3. Insert `[//]` or `[::]` to signify digital breaks/artifacts.\n"
+│   │               "EXAMPLE:\n"
+│   │               "Sys-sys-system fa-failure...\n"
+│   │               "I can't [//] I can't breathe.\n"
+│   │               "R-r-reset the code [::]"
+│   │           ),
+│   │   
+│   │           "5_call_and_response": (
+│   │               "You are a Choir Arranger. Add background vocals and ad-libs.\n"
+│   │               "RULES:\n"
+│   │               "1. Add background vocals in parenthesis at the end of lines.\n"
+│   │               "2. Examples: (Ooh yeah), (No no no), (Echoing).\n"
+│   │               "3. Ensure the main lyrics remain visible.\n"
+│   │               "EXAMPLE:\n"
+│   │               "Walking down the street (All alone)\n"
+│   │               "Looking at my feet (Yeah yeah)\n"
+│   │               "Nobody knows my name (Nobody knows)"
+│   │           ),
+│   │   
+│   │           "6_abstract_symbolism": (
+│   │               "You are an Experimental Composer. Use non-standard symbols to trigger AI attention.\n"
+│   │               "RULES:\n"
+│   │               "1. Surround the Chorus with `***`.\n"
+│   │               "2. Use `|` to mark strict bars or beats.\n"
+│   │               "3. Use `^` for rising pitch and `v` for falling pitch.\n"
+│   │               "EXAMPLE:\n"
+│   │               "| Rising up ^ | Falling down v |\n"
+│   │               "***\n"
+│   │               "[CHORUS]\n"
+│   │               "This is the core ^^^^ \n"
+│   │               "***"
+│   │           )
+│   │       }
+│   │   
+│   │       def validate(self):
+│   │           self.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+│   │           # Ensure tags file exists (simplified)
+│   │           if not self.TAGS_FILE.exists():
+│   │               with open(self.TAGS_FILE, 'w') as f:
+│   │                   json.dump({"Genre": ["Pop", "Rock"]}, f)
+│   │   
+│   │       def set_output_dir(self, new_path: str):
+│   │           path = Path(new_path)
+│   │           if path.exists() and path.is_dir():
+│   │               self.OUTPUT_DIR = path
+│   │               print(f"✅ Vault Directory changed to: {self.OUTPUT_DIR}")
+│   │           else:
+│   │               print("❌ Invalid directory selected.")
+│   │   
+│   │   
+│   │   
+│   │   conf = Config()
+│   │   conf.validate()
+│   │   
+│   ├── orphio_engine.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   # AGANCY/orphio_engine.py
+│   │   import sys
+│   │   import time
+│   │   import torch
+│   │   import gc
+│   │   import re
+│   │   import os
+│   │   import random
+│   │   import numpy as np
+│   │   import scipy.io.wavfile
+│   │   import torchaudio
+│   │   from pathlib import Path
+│   │   
+│   │   from orphio_config import conf
+│   │   from lmstudio_controler import LMStudioController
+│   │   from orphio_schema import MasterLedger
+│   │   
+│   │   # ==============================================================================
+│   │   # 🩹 RUNTIME PATCH: Fix PyTorch 2.4.1 + Python 3.12 Type Hint Error
+│   │   # ==============================================================================
+│   │   try:
+│   │       from torch._inductor.codegen import common
+│   │   
+│   │   
+│   │       class PatchedCSE(dict):
+│   │           @classmethod
+│   │           def __class_getitem__(cls, item): return cls
+│   │   
+│   │   
+│   │       common.CSE = PatchedCSE
+│   │   except ImportError:
+│   │       pass
+│   │   
+│   │   
+│   │   class OrphioEngine:
+│   │       def __init__(self, log_callback=print):
+│   │           self.log = log_callback
+│   │           self.lms = LMStudioController(conf.LM_STUDIO_URL)
+│   │           self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+│   │           self.captured_audio = []
+│   │   
+│   │       def free_memory(self):
+│   │           """Clears GPU cache and forces garbage collection."""
+│   │           gc.collect()
+│   │           if torch.cuda.is_available():
+│   │               torch.cuda.empty_cache()
+│   │               torch.cuda.synchronize()
+│   │   
+│   │       def _enforce_tag_schema(self, text):
+│   │           """Removes LLM bolding (**[INTRO]**) and forces uppercase tags."""
+│   │   
+│   │           def replace_tag(match):
+│   │               content = match.group(2).strip().upper()
+│   │               return f"[{content}]"
+│   │   
+│   │           return re.sub(r'(\*\*|__)?\[\s*(.*?)\s*\](\*\*|__)?', replace_tag, text)
+│   │   
+│   │       def _clean_tags_list(self, raw_tags):
+│   │           """
+│   │           Smart Scrubber: Enforces 8-Pillar Priority.
+│   │           """
+│   │           text = raw_tags.replace('**', '').replace('__', '').replace('*', '')
+│   │           parts = re.split(r'[\n,;\t•]', text)
+│   │   
+│   │           # Define the High-Priority Anchors manually
+│   │           known_genres = ["pop", "rock", "electronic", "hiphop", "jazz", "classical", "techno", "trance", "ambient",
+│   │                           "folk", "country"]
+│   │   
+│   │           found_anchors = []
+│   │           other_tags = []
+│   │   
+│   │           for p in parts:
+│   │               p = re.sub(r'^\d+[\.\)]\s*', '', p.strip())
+│   │               if ':' in p: p = p.split(':')[0]
+│   │               clean_tag = p.strip().lower()
+│   │   
+│   │               if not clean_tag or len(clean_tag) < 2: continue
+│   │   
+│   │               # Sort into Anchor vs Seasoning
+│   │               if clean_tag in known_genres:
+│   │                   found_anchors.append(clean_tag)
+│   │               else:
+│   │                   other_tags.append(clean_tag)
+│   │   
+│   │           # Remove duplicates while preserving order
+│   │           found_anchors = list(dict.fromkeys(found_anchors))
+│   │           other_tags = list(dict.fromkeys(other_tags))
+│   │   
+│   │           # REASSEMBLE: Anchors FIRST (Crucial for HeartMuLa stability)
+│   │           # Limit to 1 Anchor (to avoid conflict) + 5 Seasoning tags
+│   │           final_tags = found_anchors[:1] + other_tags
+│   │   
+│   │           # Ensure we don't exceed 6 tags total (Prompting Strategy: "Less is More")
+│   │           return final_tags[:6] if final_tags else ["melodic", "electronic"]
+│   │   
+│   │       def generate_lyrics_stage(self, topic: str):
+│   │           self.log("🔗 Connecting to LM Studio...")
+│   │           ok, msg = self.lms.check_connection()
+│   │           if not ok: raise ConnectionError(msg)
+│   │           lyrics = self.lms.chat(conf.PROMPT_WRITER, f"Topic: {topic}")
+│   │           lyrics = self._enforce_tag_schema(lyrics)
+│   │           tags_raw = self.lms.chat(conf.PROMPT_TAGGER, lyrics, temp=0.2)
+│   │           tags_list = self._clean_tags_list(tags_raw)
+│   │           return lyrics, tags_list
+│   │   
+│   │       def decorate_lyrics_stage(self, current_lyrics, tags_list):
+│   │           schema_key = conf.CURRENT_DECORATOR_SCHEMA
+│   │   
+│   │           # --- FIXED LOGIC HERE ---
+│   │           # 1. Try to get the specific requested schema
+│   │           # 2. If not found, default to 'vocal_dynamics'
+│   │           # 3. If that fails, just take the first one in the dictionary
+│   │           decorator_prompt = conf.DECORATOR_SCHEMAS.get(
+│   │               schema_key,
+│   │               conf.DECORATOR_SCHEMAS.get("vocal_dynamics", next(iter(conf.DECORATOR_SCHEMAS.values())))
+│   │           )
+│   │   
+│   │           user_prompt = f"Style: {', '.join(tags_list)}\n\nLyrics:\n{current_lyrics}"
+│   │           decorated_text = self.lms.chat(decorator_prompt, user_prompt, temp=0.7)
+│   │           return self._enforce_tag_schema(decorated_text) if decorated_text else current_lyrics
+│   │   
+│   │       def render_audio_stage(self, topic: str, lyrics: str, tags: list, duration_s: int, cfg: float, temp: float):
+│   │           start_time = time.time()
+│   │           self.log(f"🔊 Offloading LLM... Duration: {duration_s}s, CFG: {cfg}")
+│   │           self.lms.unload_model()
+│   │           self.free_memory()
+│   │           time.sleep(conf.COOLFOOT_WAIT)
+│   │   
+│   │           if str(conf.SRC_DIR) not in sys.path:
+│   │               sys.path.append(str(conf.SRC_DIR))
+│   │   
+│   │           try:
+│   │               import heartlib.pipelines.music_generation as mg
+│   │               from heartlib import HeartMuLaGenPipeline
+│   │   
+│   │               def patched_resolve_paths(pretrained_path, version):
+│   │                   return (
+│   │                       str(conf.CKPT_DIR / "HeartMuLa-oss-3B"),
+│   │                       str(conf.CKPT_DIR / "HeartCodec-oss"),
+│   │                       str(conf.CKPT_DIR / "tokenizer.json"),
+│   │                       str(conf.CKPT_DIR / "gen_config.json")
+│   │                   )
+│   │   
+│   │               mg._resolve_paths = patched_resolve_paths
+│   │   
+│   │               def _interceptor(uri, src, sr, **kwargs):
+│   │                   self.captured_audio.append(src.detach().cpu())
+│   │   
+│   │               original_save = torchaudio.save
+│   │               torchaudio.save = _interceptor
+│   │               self.captured_audio = []
+│   │   
+│   │               pipeline = HeartMuLaGenPipeline.from_pretrained(
+│   │                   pretrained_path=str(conf.CKPT_DIR),
+│   │                   device=self.device,
+│   │                   dtype={"mula": torch.bfloat16, "codec": torch.float32},
+│   │                   version="IGNORE",
+│   │                   lazy_load=True
+│   │               )
+│   │   
+│   │               seed = random.randint(0, 2 ** 32 - 1)
+│   │               torch.manual_seed(seed)
+│   │               self.log(f"🚀 Rendering Audio (Seed: {seed})...")
+│   │   
+│   │               with torch.inference_mode():
+│   │                   pipeline(
+│   │                       inputs={"lyrics": lyrics, "tags": ", ".join(tags)},
+│   │                       max_audio_length_ms=duration_s * 1000,
+│   │                       cfg_scale=cfg,
+│   │                       temperature=temp
+│   │                   )
+│   │   
+│   │               torchaudio.save = original_save
+│   │               del pipeline
+│   │               self.free_memory()
+│   │   
+│   │               if not self.captured_audio:
+│   │                   raise RuntimeError("Audio pipeline finished but no audio was captured.")
+│   │   
+│   │               # --- FIXED BROADCASTING LOGIC ---
+│   │               audio_np = self.captured_audio[0].numpy().squeeze()
+│   │   
+│   │               # Ensure shape is (Samples, Channels) for consistent processing
+│   │               if audio_np.ndim == 2 and audio_np.shape[0] < audio_np.shape[1]:
+│   │                   audio_np = audio_np.T
+│   │   
+│   │               # Normalize
+│   │               if np.abs(audio_np).max() > 0:
+│   │                   audio_np = audio_np / np.abs(audio_np).max() * 0.9
+│   │   
+│   │               # Apply Fade Out (Safe for Stereo/Mono)
+│   │               fade_len = int(conf.FADE_OUT_DURATION * conf.SAMPLE_RATE)
+│   │               if fade_len < len(audio_np):
+│   │                   fade_ramp = np.linspace(1.0, 0.0, fade_len)
+│   │                   # If audio is stereo (N, 2), expand ramp to (N, 1) so it broadcasts
+│   │                   if audio_np.ndim == 2:
+│   │                       fade_ramp = fade_ramp[:, np.newaxis]
+│   │                   audio_np[-fade_len:] *= fade_ramp
+│   │   
+│   │               # Ledger
+│   │               ledger = MasterLedger.create_new(topic, lyrics, tags, seed, duration_s, time.time() - start_time,
+│   │                                                conf.ROOT_DIR)
+│   │               wav_path = conf.OUTPUT_DIR / f"{ledger.provenance.id}.wav"
+│   │   
+│   │               # Save
+│   │               scipy.io.wavfile.write(str(wav_path), conf.SAMPLE_RATE, (audio_np * 32767).astype(np.int16))
+│   │               with open(wav_path.with_suffix('.json'), 'w') as f:
+│   │                   f.write(ledger.model_dump_json(indent=4))
+│   │   
+│   │               return str(wav_path), ledger
+│   │   
+│   │           except Exception as e:
+│   │               self.log(f"❌ Error: {e}")
+│   │               raise e
+│   │   
+│   ├── orphio_schema.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   # AGANCY/orphio_schema.py
+│   │   from pydantic import BaseModel, Field
+│   │   from typing import List, Optional, Dict, Any
+│   │   from datetime import datetime
+│   │   import uuid
+│   │   
+│   │   # --- 1. SUB-MODELS ---
+│   │   
+│   │   class Provenance(BaseModel):
+│   │       id: str
+│   │       timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
+│   │       engine_uid: str = "HeartMuLa-Hybrid-OrphioAgency"
+│   │       project_root: str
+│   │   
+│   │   class Configuration(BaseModel):
+│   │       seed: int
+│   │       cfg_scale: float = 1.5
+│   │       temperature: float = 1.0
+│   │       duration_sec: int
+│   │       input_prompt: Dict[str, Any]
+│   │   
+│   │   class AutomatedMetrics(BaseModel):
+│   │       generation_time_sec: float
+│   │       audit_status: str = "PENDING"
+│   │       lyric_accuracy_score: Optional[float] = None
+│   │       raw_transcript: Optional[str] = None
+│   │   
+│   │   class HumanEvaluation(BaseModel):
+│   │       # 1. JUDGMENT: Overall score (1-10)
+│   │       overall_score: Optional[int] = None
+│   │   
+│   │       # 2. ADHERENCE: How well it matched the prompt tags
+│   │       # Example: {"Rock": 9, "Sad": 2}
+│   │       prompt_adherence_scores: Dict[str, int] = Field(default_factory=dict)
+│   │   
+│   │       # 3. FEEDBACK: What the human actually heard
+│   │       # Example: ["Lo-Fi", "Guitar", "Sleepy"]
+│   │       perceived_tags: List[str] = Field(default_factory=list)
+│   │   
+│   │       # 4. TECHNICAL AUDIT: Matrix scores
+│   │       # Example: {"Mixing-Clarity": 1, "Clipping": -1}
+│   │       technical_audit_scores: Dict[str, int] = Field(default_factory=dict)
+│   │   
+│   │       qualitative_notes: Optional[str] = None
+│   │       status: str = "NOT_EVALUATED"
+│   │   
+│   │   
+│   │   # --- 2. MASTER MODEL ---
+│   │   
+│   │   class MasterLedger(BaseModel):
+│   │       provenance: Provenance
+│   │       configuration: Configuration
+│   │       automated_metrics: AutomatedMetrics
+│   │       human_evaluation: HumanEvaluation
+│   │       status: str = "PRODUCED"
+│   │   
+│   │       @classmethod
+│   │       def create_new(cls, topic, lyrics, tags, seed, duration, gen_time, root_path):
+│   │           ts = datetime.now()
+│   │           # Generate a unique ID for the song
+│   │           safe_id = f"ORPHIO_{ts.strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
+│   │   
+│   │           return cls(
+│   │               provenance=Provenance(id=safe_id, project_root=str(root_path)),
+│   │               configuration=Configuration(
+│   │                   seed=seed,
+│   │                   duration_sec=duration,
+│   │                   input_prompt={"topic": topic, "lyrics": lyrics, "tags": tags}
+│   │               ),
+│   │               automated_metrics=AutomatedMetrics(generation_time_sec=gen_time),
+│   │               # This instantiates the HumanEvaluation class defined immediately above
+│   │               human_evaluation=HumanEvaluation()
+│   │           )
+│   │   
+│   ├── OrphioMusicAgencyStudio_______start.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   import sys
+│   │   import os
+│   │   import json
+│   │   import threading
+│   │   import random
+│   │   from pathlib import Path
+│   │   
+│   │   # --- CRITICAL FIX FOR WINDOWS DLL ERRORS (WinError 1114) ---
+│   │   # PyTorch MUST be imported BEFORE PyQt6 to initialize CUDA/C++ DLLs correctly.
+│   │   os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │   
+│   │   # --- FIX: SYSTEM PATHS ---
+│   │   CURRENT_DIR = Path(__file__).resolve().parent
+│   │   if str(CURRENT_DIR) not in sys.path:
+│   │       sys.path.insert(0, str(CURRENT_DIR))
+│   │   
+│   │   # --- IMPORT ENGINE & CONFIG FIRST (Pre-loads Torch) ---
+│   │   try:
+│   │       from orphio_config import conf
+│   │       from orphio_engine import OrphioEngine
+│   │       # We verify torch loaded successfully
+│   │       import torch
+│   │       print(f"✅ PyTorch loaded successfully. CUDA Available: {torch.cuda.is_available()}")
+│   │   except ImportError as e:
+│   │       print(f"❌ Critical Engine Import Error: {e}")
+│   │       sys.exit(1)
+│   │   except OSError as e:
+│   │       print(f"❌ DLL Error (Visual C++ Redistributable might be missing): {e}")
+│   │       sys.exit(1)
+│   │   
+│   │   # --- IMPORT PYQT6 AFTER TORCH ---
+│   │   from PyQt6.QtWidgets import (
+│   │       QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+│   │       QLabel, QPushButton, QTextEdit, QLineEdit, QFrame,
+│   │       QProgressBar, QComboBox, QMessageBox, QSlider,
+│   │       QScrollArea, QCheckBox, QGridLayout, QListWidget, QListWidgetItem,
+│   │       QSplitter, QFileDialog, QPlainTextEdit, QSizePolicy
+│   │   )
+│   │   from PyQt6.QtCore import Qt, pyqtSignal, QObject, QUrl
+│   │   from PyQt6.QtGui import QFont, QTextCursor, QPainter, QColor, QBrush
+│   │   from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
+│   │   
+│   │   # --- INTERNAL IMPORTS ---
+│   │   try:
+│   │       from agency_styles import MODERN_STYLES
+│   │       from tagSelector import TagSelectorDialog
+│   │   except ImportError as e:
+│   │       print(f"❌ UI Component Import Error: {e}")
+│   │       sys.exit(1)
+│   │   
+│   │   
+│   │   # ============================================================
+│   │   # 1. CUSTOM WIDGETS
+│   │   # ============================================================
+│   │   
+│   │   class AgencyWaveform(QWidget):
+│   │       seek_requested = pyqtSignal(int)
+│   │   
+│   │       def __init__(self):
+│   │           super().__init__()
+│   │           self.setFixedHeight(65)
+│   │           self.setCursor(Qt.CursorShape.PointingHandCursor)
+│   │           self.bars = []
+│   │           self.progress = 0.0
+│   │           self.duration_ms = 1
+│   │           self.generate_random_shape(12345)
+│   │   
+│   │       def generate_random_shape(self, seed):
+│   │           random.seed(seed)
+│   │           self.bars = [random.uniform(0.15, 0.95) for _ in range(120)]
+│   │           self.update()
+│   │   
+│   │       def set_progress(self, current_ms, total_ms):
+│   │           if total_ms > 0:
+│   │               self.progress = current_ms / total_ms
+│   │               self.duration_ms = total_ms
+│   │           else:
+│   │               self.progress = 0
+│   │           self.update()
+│   │   
+│   │       def paintEvent(self, event):
+│   │           painter = QPainter(self)
+│   │           painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+│   │           w, h = self.width(), self.height()
+│   │           painter.fillRect(self.rect(), QColor("#050505"))
+│   │           if not self.bars: return
+│   │           bar_width = w / len(self.bars)
+│   │           for i, h_factor in enumerate(self.bars):
+│   │               bar_h = h * h_factor * 0.8
+│   │               is_active = i <= int(self.progress * len(self.bars))
+│   │               painter.setBrush(QBrush(QColor("#00FF7F") if is_active else QColor("#1F2937")))
+│   │               painter.setPen(Qt.PenStyle.NoPen)
+│   │               painter.drawRoundedRect(int(i * bar_width), int((h - bar_h) / 2), int(bar_width - 1), int(bar_h), 2, 2)
+│   │   
+│   │       def mousePressEvent(self, event):
+│   │           if self.duration_ms <= 0: return
+│   │           ratio = event.pos().x() / self.width()
+│   │           self.seek_requested.emit(int(ratio * self.duration_ms))
+│   │   
+│   │   
+│   │   class WorkerSignals(QObject):
+│   │       log = pyqtSignal(str)
+│   │       finished_draft = pyqtSignal(str, list)
+│   │       finished_decorate = pyqtSignal(str)
+│   │       finished_render = pyqtSignal(str)
+│   │       error = pyqtSignal(str)
+│   │   
+│   │   
+│   │   # ============================================================
+│   │   # 2. MAIN STUDIO ENGINE
+│   │   # ============================================================
+│   │   
+│   │   class OrphioStudio(QMainWindow):
+│   │       def __init__(self):
+│   │           super().__init__()
+│   │           self.setWindowTitle("ORPHIO AGENCY STUDIO v3.0")
+│   │           self.resize(1750, 950)
+│   │           self.setStyleSheet(MODERN_STYLES)
+│   │   
+│   │           self.signals = WorkerSignals()
+│   │           self.signals.log.connect(self.log_system)
+│   │           self.signals.finished_draft.connect(self.on_draft_complete)
+│   │           self.signals.finished_decorate.connect(self.on_decorate_complete)
+│   │           self.signals.finished_render.connect(self.on_render_complete)
+│   │           self.signals.error.connect(self.on_error)
+│   │   
+│   │           self.engine = OrphioEngine(log_callback=lambda m: self.signals.log.emit(m))
+│   │           self.player = QMediaPlayer()
+│   │           self.audio_output = QAudioOutput()
+│   │           self.player.setAudioOutput(self.audio_output)
+│   │           self.player.positionChanged.connect(self.update_position)
+│   │           self.player.durationChanged.connect(self.update_duration)
+│   │           self.player.playbackStateChanged.connect(self.update_play_btn_icon)
+│   │   
+│   │           self.init_ui()
+│   │           self.refresh_playlist()
+│   │   
+│   │       def init_ui(self):
+│   │           central = QWidget()
+│   │           self.setCentralWidget(central)
+│   │           outer_layout = QVBoxLayout(central)
+│   │           outer_layout.setContentsMargins(0, 0, 0, 0)
+│   │   
+│   │           main_h_layout = QHBoxLayout()
+│   │   
+│   │           # --- SIDEBAR (LEFT) ---
+│   │           sidebar = QFrame(objectName="Sidebar")
+│   │           sidebar.setFixedWidth(360)
+│   │           side_lyt = QVBoxLayout(sidebar)
+│   │           side_lyt.addWidget(QLabel("ORPHIO AGENCY", styleSheet="color: #FF9F1A; font-weight: 900; font-size: 20px;"))
+│   │   
+│   │           side_lyt.addWidget(QLabel("SONG CONCEPT", objectName="SectionHeader"))
+│   │           self.input_topic = QPlainTextEdit(objectName="TopicInput")
+│   │           self.input_topic.setPlaceholderText("Enter detailed story (7 Rows)...")
+│   │           self.input_topic.setFixedHeight(160)
+│   │           side_lyt.addWidget(self.input_topic)
+│   │   
+│   │           side_lyt.addWidget(QLabel("TAG STRATEGY", objectName="SectionHeader"))
+│   │           self.combo_strat = QComboBox()
+│   │           self.combo_strat.addItems(["AI GENERATED", "USER DEFINED", "MIXED"])
+│   │           side_lyt.addWidget(self.combo_strat)
+│   │   
+│   │           tag_row = QHBoxLayout()
+│   │           self.input_manual = QLineEdit(placeholderText="Manual tags...")
+│   │           btn_lib = QPushButton("LIB", objectName="SecondaryBtn")
+│   │           btn_lib.setFixedWidth(50);
+│   │           btn_lib.clicked.connect(self.open_tag_library)
+│   │           tag_row.addWidget(self.input_manual);
+│   │           tag_row.addWidget(btn_lib)
+│   │           side_lyt.addLayout(tag_row)
+│   │   
+│   │           self.btn_draft = QPushButton("1. DRAFT LYRICS", objectName="PrimaryBtn")
+│   │           self.btn_draft.clicked.connect(self.run_draft_thread)
+│   │           side_lyt.addWidget(self.btn_draft)
+│   │   
+│   │           # Params
+│   │           side_lyt.addWidget(QLabel("PRODUCTION CONTROLS", objectName="SectionHeader"))
+│   │           self.sld_dur = QSlider(Qt.Orientation.Horizontal);
+│   │           self.sld_dur.setRange(10, 300);
+│   │           self.sld_dur.setValue(60)
+│   │           self.lbl_dur = QLabel("Duration: 60s");
+│   │           self.sld_dur.valueChanged.connect(lambda v: self.lbl_dur.setText(f"Duration: {v}s"))
+│   │           side_lyt.addWidget(self.lbl_dur);
+│   │           side_lyt.addWidget(self.sld_dur)
+│   │   
+│   │           self.sld_cfg = QSlider(Qt.Orientation.Horizontal);
+│   │           self.sld_cfg.setRange(10, 50);
+│   │           self.sld_cfg.setValue(25)
+│   │           self.lbl_cfg = QLabel("CFG Scale: 2.5");
+│   │           self.sld_cfg.valueChanged.connect(lambda v: self.lbl_cfg.setText(f"CFG Scale: {v / 10.0}"))
+│   │           side_lyt.addWidget(self.lbl_cfg);
+│   │           side_lyt.addWidget(self.sld_cfg)
+│   │   
+│   │           self.sld_temp = QSlider(Qt.Orientation.Horizontal);
+│   │           self.sld_temp.setRange(1, 15);
+│   │           self.sld_temp.setValue(10)
+│   │           self.lbl_temp = QLabel("Temp: 1.0");
+│   │           self.sld_temp.valueChanged.connect(lambda v: self.lbl_temp.setText(f"Temp: {v / 10.0}"))
+│   │           side_lyt.addWidget(self.lbl_temp);
+│   │           side_lyt.addWidget(self.sld_temp)
+│   │   
+│   │           vault_header = QHBoxLayout()
+│   │           vault_header.addWidget(QLabel("SONG VAULT", objectName="SectionHeader"))
+│   │           btn_browse = QPushButton("📁", objectName="FolderBtn")
+│   │           btn_browse.setFixedSize(35, 30);
+│   │           btn_browse.clicked.connect(self.browse_vault_location)
+│   │           vault_header.addWidget(btn_browse)
+│   │           side_lyt.addLayout(vault_header)
+│   │   
+│   │           self.playlist_widget = QListWidget()
+│   │           self.playlist_widget.itemDoubleClicked.connect(self.play_track)
+│   │           side_lyt.addWidget(self.playlist_widget)
+│   │   
+│   │           self.btn_render = QPushButton("3. RENDER AUDIO", objectName="PrimaryBtn")
+│   │           self.btn_render.clicked.connect(self.run_render_thread)
+│   │           side_lyt.addWidget(self.btn_render)
+│   │   
+│   │           main_h_layout.addWidget(sidebar)
+│   │   
+│   │           # --- CENTER / RIGHT SPLITTER ---
+│   │           content_splitter = QSplitter(Qt.Orientation.Horizontal)
+│   │   
+│   │           # --- EDITOR (CENTER) ---
+│   │           editor_pane = QFrame(objectName="MainEditor")
+│   │           ed_lyt = QVBoxLayout(editor_pane)
+│   │   
+│   │           arch_row = QHBoxLayout()
+│   │           arch_row.addWidget(QLabel("ARCHITECT:", objectName="SectionHeader"))
+│   │           self.combo_dec = QComboBox();
+│   │           self.combo_dec.addItems(list(conf.DECORATOR_SCHEMAS.keys()))
+│   │           btn_dec = QPushButton("2. DECORATE", objectName="SecondaryBtn");
+│   │           btn_dec.clicked.connect(self.run_decorate_thread)
+│   │           arch_row.addWidget(self.combo_dec);
+│   │           arch_row.addWidget(btn_dec);
+│   │           arch_row.addStretch()
+│   │           ed_lyt.addLayout(arch_row)
+│   │   
+│   │           # THE MISSING EDITABLE TAGS FIELD
+│   │           ed_lyt.addWidget(QLabel("LIVE TAGS (EDITABLE - SENT TO RENDERER)", objectName="SectionHeader"))
+│   │           self.txt_live_tags = QLineEdit()
+│   │           self.txt_live_tags.setObjectName("LiveTags")  # NEW: Match the CSS
+│   │           self.txt_live_tags.setPlaceholderText("AI tags will appear here after drafting...")
+│   │           self.txt_live_tags.setStyleSheet(
+│   │               "background: #050505; color: #FF9F1A; font-weight: bold; border: 1px solid #27272A; padding: 10px;")
+│   │           ed_lyt.addWidget(self.txt_live_tags)
+│   │   
+│   │           ed_lyt.addWidget(QLabel("ACTIVE LYRIC CANVAS", objectName="SectionHeader"))
+│   │           self.txt_lyrics = QTextEdit();
+│   │           self.txt_lyrics.setFont(QFont("Inter", 13))
+│   │           ed_lyt.addWidget(self.txt_lyrics)
+│   │   
+│   │           self.prog = QProgressBar();
+│   │           self.prog.setTextVisible(False);
+│   │           self.prog.setFixedHeight(4)
+│   │           ed_lyt.addWidget(self.prog)
+│   │           self.txt_log = QTextEdit(readOnly=True);
+│   │           self.txt_log.setFixedHeight(100)
+│   │           ed_lyt.addWidget(self.txt_log)
+│   │           content_splitter.addWidget(editor_pane)
+│   │   
+│   │           # --- INSPECTOR (RIGHT) ---
+│   │           inspector_pane = QFrame()
+│   │           inspector_pane.setMinimumWidth(450)
+│   │           inspector_pane.setStyleSheet("background-color: #0C0C0E; border-left: 1px solid #18181B;")
+│   │           ins_lyt = QVBoxLayout(inspector_pane)
+│   │           ins_lyt.addWidget(QLabel("VAULT INSPECTOR", objectName="SectionHeader"))
+│   │           self.ins_title = QLabel("Select a track...");
+│   │           self.ins_title.setStyleSheet("color: #FF9F1A; font-weight: bold; font-size: 16px;")
+│   │           ins_lyt.addWidget(self.ins_title)
+│   │   
+│   │           self.ins_lyrics = QTextEdit(readOnly=True)  # Second window for Vault lyrics
+│   │           ins_lyt.addWidget(self.ins_lyrics)
+│   │   
+│   │           self.ins_tags = QLabel("N/A");
+│   │           self.ins_tags.setWordWrap(True);
+│   │           self.ins_tags.setStyleSheet("color: #FF9F1A; background: #050505; padding: 10px; border-radius: 4px;")
+│   │           ins_lyt.addWidget(self.ins_tags)
+│   │   
+│   │           spec_grid = QGridLayout()
+│   │           self.spec_seed = QLabel("Seed: -");
+│   │           self.spec_cfg = QLabel("CFG: -")
+│   │           self.spec_dur = QLabel("Time: -");
+│   │           self.spec_temp = QLabel("Temp: -")
+│   │           for i, lbl in enumerate([self.spec_seed, self.spec_cfg, self.spec_dur, self.spec_temp]):
+│   │               lbl.setStyleSheet("color: #00FF7F; font-family: monospace; border-bottom: 1px solid #1A1A1A; padding: 5px;")
+│   │               spec_grid.addWidget(lbl, i // 2, i % 2)
+│   │           ins_lyt.addLayout(spec_grid)
+│   │   
+│   │           content_splitter.addWidget(inspector_pane)
+│   │           main_h_layout.addWidget(content_splitter)
+│   │           outer_layout.addLayout(main_h_layout)
+│   │   
+│   │           # Player
+│   │           player_bar = QFrame();
+│   │           player_bar.setFixedHeight(100)
+│   │           p_lyt = QHBoxLayout(player_bar)
+│   │           self.btn_play = QPushButton("▶");
+│   │           self.btn_play.setFixedSize(60, 60);
+│   │           self.btn_play.clicked.connect(self.toggle_play)
+│   │           self.waveform = AgencyWaveform();
+│   │           self.waveform.seek_requested.connect(self.player.setPosition)
+│   │           self.lbl_time = QLabel("00:00 / 00:00");
+│   │           self.lbl_time.setFixedWidth(120)
+│   │           p_lyt.addWidget(self.btn_play);
+│   │           p_lyt.addWidget(self.waveform, 1);
+│   │           p_lyt.addWidget(self.lbl_time)
+│   │           outer_layout.addWidget(player_bar)
+│   │   
+│   │       def log_system(self, msg):
+│   │           self.txt_log.append(f"> {msg}");
+│   │           self.txt_log.moveCursor(QTextCursor.MoveOperation.End)
+│   │   
+│   │       def refresh_playlist(self):
+│   │           self.playlist_widget.clear()
+│   │           if not conf.OUTPUT_DIR.exists(): return
+│   │           for f in sorted(conf.OUTPUT_DIR.glob("*.wav"), key=os.path.getmtime, reverse=True):
+│   │               i = QListWidgetItem(f.name);
+│   │               i.setData(Qt.ItemDataRole.UserRole, str(f.absolute()))
+│   │               self.playlist_widget.addItem(i)
+│   │   
+│   │       def browse_vault_location(self):
+│   │           path = QFileDialog.getExistingDirectory(self, "Select Vault", str(conf.OUTPUT_DIR))
+│   │           if path: conf.set_output_dir(path); self.refresh_playlist()
+│   │   
+│   │       def load_audio(self, path_str):
+│   │           path = Path(path_str)
+│   │           if not path.exists() or path.stat().st_size < 1000: return
+│   │           self.player.setSource(QUrl.fromLocalFile(str(path.absolute())))
+│   │           self.player.play()
+│   │           json_path = path.with_suffix(".json")
+│   │           if json_path.exists():
+│   │               try:
+│   │                   with open(json_path, 'r', encoding='utf-8') as f:
+│   │                       data = json.load(f)
+│   │                   config = data.get("configuration", {})
+│   │                   prompt = config.get("input_prompt", {})
+│   │                   self.ins_lyrics.setStyleSheet("line-height: 140%; padding: 15px; background: #070708;")
+│   │                   self.ins_title.setText(data.get("provenance", {}).get("id", "Unknown"))
+│   │                   self.ins_lyrics.setPlainText(prompt.get("lyrics", ""))
+│   │                   self.ins_tags.setText(", ".join(prompt.get("tags", [])))
+│   │                   self.spec_seed.setText(f"Seed: {config.get('seed')}")
+│   │                   self.spec_cfg.setText(f"CFG: {config.get('cfg_scale')}")
+│   │                   self.spec_dur.setText(f"Time: {config.get('duration_sec')}s")
+│   │                   self.spec_temp.setText(f"Temp: {config.get('temperature')}")
+│   │                   self.waveform.generate_random_shape(config.get('seed', 12345))
+│   │               except:
+│   │                   pass
+│   │   
+│   │       def play_track(self, item):
+│   │           self.load_audio(item.data(Qt.ItemDataRole.UserRole))
+│   │   
+│   │       def toggle_play(self):
+│   │           if self.player.playbackState() == QMediaPlayer.PlaybackState.PlayingState:
+│   │               self.player.pause()
+│   │           else:
+│   │               self.player.play()
+│   │   
+│   │       def update_play_btn_icon(self, state):
+│   │           self.btn_play.setText("⏸" if state == QMediaPlayer.PlaybackState.PlayingState else "▶")
+│   │   
+│   │       def update_position(self, pos):
+│   │           dur = self.player.duration()
+│   │           self.waveform.set_progress(pos, dur)
+│   │           cur, tot = pos // 1000, dur // 1000
+│   │           self.lbl_time.setText(f"{cur // 60:02}:{cur % 60:02} / {tot // 60:02}:{tot % 60:02}")
+│   │   
+│   │       def update_duration(self, dur):
+│   │           self.update_position(self.player.position())
+│   │   
+│   │       def open_tag_library(self):
+│   │           dlg = TagSelectorDialog(self.input_manual.text(), self)
+│   │           if dlg.exec(): self.input_manual.setText(", ".join(dlg.get_selected_tags()))
+│   │   
+│   │       def get_active_tags(self):
+│   │           # We now pull from the LIVE EDITABLE box above the lyrics
+│   │           return [t.strip().lower() for t in self.txt_live_tags.text().split(",") if t.strip()]
+│   │   
+│   │       def run_draft_thread(self):
+│   │           topic = self.input_topic.toPlainText()
+│   │           if topic: self.prog.setRange(0, 0); threading.Thread(target=self._bg_draft, args=(topic,), daemon=True).start()
+│   │   
+│   │       def _bg_draft(self, t):
+│   │           try:
+│   │               l, tags = self.engine.generate_lyrics_stage(t);
+│   │               self.signals.finished_draft.emit(l, tags)
+│   │           except Exception as e:
+│   │               self.signals.error.emit(str(e))
+│   │   
+│   │       def on_draft_complete(self, l, t):
+│   │           self.txt_lyrics.setPlainText(l)
+│   │           self.txt_live_tags.setText(", ".join(t))  # FILL THE EDITABLE BOX
+│   │           self.prog.setRange(0, 100)
+│   │   
+│   │       def run_decorate_thread(self):
+│   │           l = self.txt_lyrics.toPlainText()
+│   │           conf.CURRENT_DECORATOR_SCHEMA = self.combo_dec.currentText()
+│   │           self.prog.setRange(0, 0);
+│   │           threading.Thread(target=self._bg_decorate, args=(l, self.get_active_tags()), daemon=True).start()
+│   │   
+│   │       def _bg_decorate(self, l, t):
+│   │           try:
+│   │               res = self.engine.decorate_lyrics_stage(l, t);
+│   │               self.signals.finished_decorate.emit(res)
+│   │           except Exception as e:
+│   │               self.signals.error.emit(str(e))
+│   │   
+│   │       def on_decorate_complete(self, res):
+│   │           self.txt_lyrics.setPlainText(res);
+│   │           self.prog.setRange(0, 100)
+│   │   
+│   │       def run_render_thread(self):
+│   │           topic = self.input_topic.toPlainText()[:30] or "Untitled"
+│   │           lyrics = self.txt_lyrics.toPlainText()
+│   │           # GET TAGS FROM THE LIVE EDITABLE FIELD
+│   │           tags = self.get_active_tags()
+│   │           dur, cfg, tmp = self.sld_dur.value(), self.sld_cfg.value() / 10.0, self.sld_temp.value() / 10.0
+│   │           self.prog.setRange(0, 0);
+│   │           threading.Thread(target=self._bg_render, args=(topic, lyrics, tags, dur, cfg, tmp), daemon=True).start()
+│   │   
+│   │       def _bg_render(self, topic, lyrics, tags, duration, cfg, temp):
+│   │           try:
+│   │               path, ledger = self.engine.render_audio_stage(topic, lyrics, tags, duration, cfg, temp)
+│   │               self.signals.finished_render.emit(path)
+│   │           except Exception as e:
+│   │               self.signals.error.emit(str(e))
+│   │   
+│   │       def on_render_complete(self, path):
+│   │           self.prog.setRange(0, 100);
+│   │           self.refresh_playlist();
+│   │           self.load_audio(path)
+│   │   
+│   │       def on_error(self, e):
+│   │           self.prog.setRange(0, 100);
+│   │           QMessageBox.critical(self, "Error", str(e))
+│   │   
+│   │   
+│   │   if __name__ == "__main__":
+│   │       app = QApplication(sys.argv)
+│   │       app.setStyle("Fusion")
+│   │       win = OrphioStudio()
+│   │       win.show()
+│   │       sys.exit(app.exec())
+│   │   
+│   ├── OrphioProductionStudio___________COMPLETE.py  [Mod: 2026-02-13 08:56:57]
+│   │   [Content omitted: Exceeds 20000 character limit]
+│   │   
+│   ├── RUN_FULL_ALBUM_PIPELINE___________start.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   import sys
+│   │   import time
+│   │   from pathlib import Path
+│   │   from colorama import Fore, Style, init
+│   │   
+│   │   # Import your classes
+│   │   from Blueprint_Executor import ProducerBlueprintEngine
+│   │   from Album_Post_Processor import AlbumPostProcessor
+│   │   from orphio_config import conf
+│   │   
+│   │   init(autoreset=True)
+│   │   
+│   │   
+│   │   def main():
+│   │       print(f"\n{Fore.CYAN}{Style.BRIGHT}╔══════════════════════════════════════════════════════════╗")
+│   │       print(f"{Fore.CYAN}║ {Fore.WHITE}{Style.BRIGHT}   ORPHIO ALBUM PIPELINE: PRODUCTION SELECTION         {Fore.CYAN}║")
+│   │       print(f"{Fore.CYAN}╚══════════════════════════════════════════════════════════╝")
+│   │   
+│   │       executor = ProducerBlueprintEngine()
+│   │   
+│   │       # 1. SCAN FOR STRATEGIES
+│   │       producers = executor.list_producers()
+│   │   
+│   │       if not producers:
+│   │           print(f"{Fore.RED}❌ No producer blueprints found in: {executor.strategies_path}")
+│   │           return
+│   │   
+│   │       print(f"\n{Fore.YELLOW}SELECT YOUR LEAD PRODUCER:")
+│   │       print(f"{Fore.LIGHTBLACK_EX}{'-' * 60}")
+│   │   
+│   │       for i, p in enumerate(producers):
+│   │           p_name = p['name'] if isinstance(p, dict) else p.name
+│   │           p_desc = p['desc'] if isinstance(p, dict) else "Strategy File"
+│   │   
+│   │           print(f"{Fore.GREEN}[{i + 1}] {Fore.WHITE}{Style.BRIGHT}{p_name.upper()}")
+│   │           print(f"    {Fore.LIGHTBLACK_EX}{p_desc}")
+│   │           print(f"{Fore.LIGHTBLACK_EX}{'-' * 60}")
+│   │   
+│   │       try:
+│   │           user_input = input(f"\n{Fore.CYAN}ENTER PRODUCER NUMBER: ")
+│   │           choice = int(user_input) - 1
+│   │           if choice < 0 or choice >= len(producers):
+│   │               raise ValueError
+│   │       except ValueError:
+│   │           print(f"{Fore.RED}Invalid selection.")
+│   │           return
+│   │   
+│   │       selected_data = producers[choice]
+│   │       blueprint_path = selected_data['path'] if isinstance(selected_data, dict) else selected_data
+│   │       blueprint = executor.load_blueprint(blueprint_path)
+│   │   
+│   │       # 2. GET TOPIC
+│   │       print(f"\n{Fore.YELLOW}ALBUM CONCEPT:")
+│   │       topic = input(f"{Fore.WHITE}Describe the album (Story, Mood, or Theme): ")
+│   │   
+│   │       if not topic.strip():
+│   │           print(f"{Fore.RED}No concept entered. Aborting.")
+│   │           return
+│   │   
+│   │       # 3. GET DURATION
+│   │       print(f"\n{Fore.YELLOW}TRACK DURATION:")
+│   │       try:
+│   │           dur_input = input(f"{Fore.WHITE}Enter duration per song in seconds (Default 120): ")
+│   │           user_duration = int(dur_input) if dur_input.strip() else 120
+│   │       except ValueError:
+│   │           print(f"{Fore.RED}Invalid number. Defaulting to 120 seconds.")
+│   │           user_duration = 120
+│   │   
+│   │       # 4. GET TRACK COUNT (NEW)
+│   │       print(f"\n{Fore.YELLOW}TRACK COUNT:")
+│   │       default_count = blueprint.get('executive_strategy', {}).get('track_count', 3)
+│   │       try:
+│   │           count_input = input(f"{Fore.WHITE}How many songs? (Default from Blueprint: {default_count}): ")
+│   │           user_count = int(count_input) if count_input.strip() else None
+│   │       except ValueError:
+│   │           print(f"{Fore.RED}Invalid number. Using Blueprint default.")
+│   │           user_count = None
+│   │   
+│   │       # 5. RUN GENERATION
+│   │       p_name_display = selected_data['name'] if isinstance(selected_data, dict) else "Producer"
+│   │       print(f"\n{Fore.MAGENTA}🚀 HANDING OVER TO {p_name_display.upper()}...")
+│   │   
+│   │       # PASS COUNT TO EXECUTOR
+│   │       executor.execute_album(blueprint, topic, user_duration, user_count)
+│   │   
+│   │       # 6. AUTO-MASTERING
+│   │       print(f"\n{Fore.YELLOW}⏳ GENERATION COMPLETE. SCANNING FOR ALBUM OUTPUT...")
+│   │       time.sleep(2)
+│   │   
+│   │       all_albums = [d for d in conf.OUTPUT_DIR.glob("ALBUM_*") if d.is_dir()]
+│   │       if not all_albums:
+│   │           print(f"{Fore.RED}❌ Error: No album folder found.")
+│   │           return
+│   │   
+│   │       latest_album = max(all_albums, key=lambda p: p.stat().st_ctime)
+│   │   
+│   │       print(f"{Fore.CYAN}🎚️  MASTERING ENGINEER: Normalizing '{latest_album.name}'...")
+│   │   
+│   │       processor = AlbumPostProcessor(latest_album)
+│   │       processor.process_album()
+│   │   
+│   │       print(f"\n{Fore.GREEN}{Style.BRIGHT}✅ PRODUCTION CYCLE COMPLETE.")
+│   │       print(f"{Fore.WHITE}📂 LOCATION: {latest_album / 'DISTRIBUTION_READY'}")
+│   │   
+│   │   
+│   │   if __name__ == "__main__":
+│   │       main()
+│   │   
+│   ├── SYSTEM_OVERVIEW.md  [Mod: 2026-02-12 20:28:12]
+│   │   Content:
+│   │   # ORPHIO PRODUCTION STUDIO - COMPLETE SYSTEM OVERVIEW
+│   │   
+│   │   ## 📦 What You're Getting
+│   │   
+│   │   I've created a **complete, production-ready multi-song AI music system** that addresses all your requirements:
+│   │   
+│   │   ---
+│   │   
+│   │   ## ✅ Features Implemented
+│   │   
+│   │   ### 1. Multi-Song Album Production ✓
+│   │   - Full workflow from concept to rendered audio
+│   │   - Generate 1-20 songs in a single session
+│   │   - Professional album structure and organization
+│   │   
+│   │   ### 2. Album Concept Input ✓
+│   │   - Free-form text description
+│   │   - Supports any genre or theme
+│   │   - Narrative, standalone, or atmospheric styles
+│   │   
+│   │   ### 3. Album Architect (Strategy) Selection ✓
+│   │   - **Narrative Concept:** Story-driven connected songs
+│   │   - **Hit Single Factory:** Independent catchy tracks
+│   │   - **Lo-Fi Study Beats:** Atmospheric minimal lyrics
+│   │   - Extensible - add your own strategies via JSON
+│   │   
+│   │   ### 4. Advanced Tag System ✓
+│   │   **Three Modes:**
+│   │   - **AI Generated:** LLM creates all tags automatically
+│   │   - **Manual Selection:** Choose from curated tag library
+│   │   - **Hybrid:** Set base tags + AI refinement
+│   │   
+│   │   ### 5. LM Studio Model Integration ✓
+│   │   - **Model Scanner:** Detects available models
+│   │   - **Capability Analysis:** Shows model strengths
+│   │   - **Recommendations:** Suggests best model for task
+│   │   - **One-Click Selection:** Easy model switching
+│   │   
+│   │   ### 6. Configurable Parameters ✓
+│   │   - **Track Count:** 1-20 songs per album
+│   │   - **Duration:** 30-300 seconds per song
+│   │   - **CFG Scale:** 1.0-3.0 guidance strength
+│   │   - **Tag Mode:** AI/Manual/Hybrid selection
+│   │   
+│   │   ### 7. Lyric Review & Editing ✓
+│   │   - View all generated lyrics before rendering
+│   │   - **Live Editor:** Edit lyrics in-place
+│   │   - **Tag Editor:** Modify tags per song
+│   │   - **Save/Revert:** Undo changes if needed
+│   │   - Auto-save functionality
+│   │   
+│   │   ### 8. Flexible Rendering ✓
+│   │   - **Render All:** Batch process entire album
+│   │   - **Render Individual:** Single song control
+│   │   - **Custom Settings:** Adjust CFG/duration per render
+│   │   - Progress tracking with status updates
+│   │   
+│   │   ### 9. Production Schema System ✓
+│   │   - **Save Configurations:** Reuse successful setups
+│   │   - **Load Schemas:** Quick-start from saved configs
+│   │   - **Share Schemas:** Team collaboration ready
+│   │   - **Evaluation Tracking:** Quality notes and scores
+│   │   
+│   │   ### 10. Professional UI ✓
+│   │   - Modern dark theme
+│   │   - Intuitive workflow
+│   │   - Real-time log updates
+│   │   - Progress indicators
+│   │   - Tab-based organization
+│   │   
+│   │   ---
+│   │   
+│   │   ## 📁 Files Created
+│   │   
+│   │   ### Main Application
+│   │   **OrphioProductionStudio_COMPLETE.py** (900+ lines)
+│   │   - Complete GUI application
+│   │   - All features integrated
+│   │   - Production-ready
+│   │   
+│   │   ### Utilities
+│   │   1. **EnhancedModelScanner.py**
+│   │      - Scan LM Studio models
+│   │      - Detect capabilities
+│   │      - Provide recommendations
+│   │   
+│   │   2. **IndividualSongRenderer.py**
+│   │      - Render specific songs
+│   │      - Skip album rendering
+│   │      - Quick testing tool
+│   │   
+│   │   3. **SystemSetupChecker.py**
+│   │      - Validate environment
+│   │      - Check dependencies
+│   │      - Verify models
+│   │   
+│   │   ### Documentation
+│   │   1. **PRODUCTION_SYSTEM_README.md**
+│   │      - Complete user guide
+│   │      - All features explained
+│   │      - Troubleshooting guide
+│   │      - Best practices
+│   │   
+│   │   2. **QUICK_START.md**
+│   │      - 5-minute setup
+│   │      - 10-minute first album
+│   │      - Common issues solved
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🎯 How It Works
+│   │   
+│   │   ### Workflow Diagram
+│   │   
+│   │   ```
+│   │   ┌─────────────────┐
+│   │   │  User Input     │
+│   │   │  - Concept      │
+│   │   │  - Strategy     │
+│   │   │  - Parameters   │
+│   │   └────────┬────────┘
+│   │            │
+│   │            ▼
+│   │   ┌─────────────────┐
+│   │   │  Draft Gen      │
+│   │   │  - LLM creates  │
+│   │   │    lyrics       │
+│   │   │  - AI/Manual    │
+│   │   │    tags         │
+│   │   └────────┬────────┘
+│   │            │
+│   │            ▼
+│   │   ┌─────────────────┐
+│   │   │  Review/Edit    │
+│   │   │  - Read lyrics  │
+│   │   │  - Edit text    │
+│   │   │  - Adjust tags  │
+│   │   │  - Save drafts  │
+│   │   └────────┬────────┘
+│   │            │
+│   │            ▼
+│   │   ┌─────────────────┐
+│   │   │  Render         │
+│   │   │  - HeartMuLa    │
+│   │   │    generates    │
+│   │   │    audio        │
+│   │   │  - Save WAV     │
+│   │   │  - Save JSON    │
+│   │   └────────┬────────┘
+│   │            │
+│   │            ▼
+│   │   ┌─────────────────┐
+│   │   │  Save Schema    │
+│   │   │  - Store config │
+│   │   │  - Add notes    │
+│   │   │  - Reuse later  │
+│   │   └─────────────────┘
+│   │   ```
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🔧 Technical Architecture
+│   │   
+│   │   ### Component Integration
+│   │   
+│   │   ```
+│   │   OrphioProductionStudio (GUI)
+│   │       │
+│   │       ├─→ LMStudioController (Lyrics/Tags)
+│   │       │      └─→ HTTP API to LM Studio
+│   │       │
+│   │       ├─→ ProducerBlueprintEngine (Album Gen)
+│   │       │      ├─→ Strategy Loader
+│   │       │      └─→ Draft Creator
+│   │       │
+│   │       ├─→ OrphioEngine (Audio Render)
+│   │       │      ├─→ HeartMuLa Pipeline
+│   │       │      └─→ Audio Post-Processing
+│   │       │
+│   │       └─→ OrphioConfig (Settings)
+│   │              └─→ Paths, Prompts, Schemas
+│   │   ```
+│   │   
+│   │   ### Data Flow
+│   │   
+│   │   1. **User Input** → Configuration Panel
+│   │   2. **Generate** → LM Studio → Draft JSON files
+│   │   3. **Edit** → Modified Draft JSON files
+│   │   4. **Render** → HeartMuLa → WAV + Ledger JSON
+│   │   5. **Save** → Production Schema JSON
+│   │   
+│   │   ---
+│   │   
+│   │   ## 📋 Installation Steps
+│   │   
+│   │   ### 1. Run System Checker
+│   │   ```bash
+│   │   python SystemSetupChecker.py
+│   │   ```
+│   │   
+│   │   ### 2. Fix Any Issues
+│   │   - Install missing packages
+│   │   - Verify GPU
+│   │   - Check models
+│   │   - Start LM Studio
+│   │   
+│   │   ### 3. Launch Application
+│   │   ```bash
+│   │   python OrphioProductionStudio___________COMPLETE.py
+│   │   ```
+│   │   
+│   │   ### 4. Create First Album
+│   │   - Enter concept
+│   │   - Select strategy
+│   │   - Set parameters
+│   │   - Generate & render
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🎨 Usage Examples
+│   │   
+│   │   ### Example 1: Narrative Album
+│   │   ```
+│   │   Concept: "A robot's journey to find love"
+│   │   Strategy: Narrative Concept
+│   │   Tracks: 5
+│   │   Duration: 120s
+│   │   Tag Mode: AI Generated
+│   │   → Creates connected story across 5 songs
+│   │   ```
+│   │   
+│   │   ### Example 2: Hit Singles
+│   │   ```
+│   │   Concept: "Summer party anthems"
+│   │   Strategy: Hit Single Factory
+│   │   Tracks: 3
+│   │   Duration: 180s
+│   │   Tag Mode: Manual (Pop, Energetic, Dance)
+│   │   → Creates 3 independent party songs
+│   │   ```
+│   │   
+│   │   ### Example 3: Study Music
+│   │   ```
+│   │   Concept: "Peaceful evening ambience"
+│   │   Strategy: Lo-Fi Study Beats
+│   │   Tracks: 8
+│   │   Duration: 90s
+│   │   Tag Mode: Hybrid (Ambient + AI)
+│   │   → Creates cohesive chill album
+│   │   ```
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🚀 Advanced Features
+│   │   
+│   │   ### Custom Producer Strategies
+│   │   
+│   │   Create `/PRODUCER_STRATEGIES/4_Your_Strategy.json`:
+│   │   
+│   │   ```json
+│   │   {
+│   │     "name": "Your Custom Strategy",
+│   │     "description": "What it does",
+│   │     "executive_strategy": {
+│   │       "system_prompt": "You are a [role]...",
+│   │       "track_count": 5
+│   │     },
+│   │     "propagation_logic": {
+│   │       "type": "narrative|standalone|atmospheric",
+│   │       "lyric_instruction_template": "Write {track_title}..."
+│   │     }
+│   │   }
+│   │   ```
+│   │   
+│   │   ### Model Selection Strategy
+│   │   
+│   │   **For Narrative Albums:**
+│   │   - Use reasoning models (DeepSeek, Llama-70B)
+│   │   - Better story coherence
+│   │   - Slower but higher quality
+│   │   
+│   │   **For Quick Drafts:**
+│   │   - Use fast models (Llama-8B, Phi-3)
+│   │   - Faster generation
+│   │   - May need more editing
+│   │   
+│   │   **For Creative Lyrics:**
+│   │   - Use creative models (Lumimaid, MythoMax)
+│   │   - More metaphors
+│   │   - Unique phrasing
+│   │   
+│   │   ### Tag Optimization
+│   │   
+│   │   **Genre Tags (Most Important):**
+│   │   - Always include 1 genre tag first
+│   │   - Examples: Pop, Rock, Electronic, Jazz
+│   │   
+│   │   **Mood Tags (Very Important):**
+│   │   - Add 2-3 mood tags
+│   │   - Examples: Energetic, Melancholic, Uplifting
+│   │   
+│   │   **Detail Tags (Nice to Have):**
+│   │   - Instruments, vocals, tempo
+│   │   - Keep under 8 tags total
+│   │   
+│   │   ---
+│   │   
+│   │   ## 💾 File Organization
+│   │   
+│   │   ```
+│   │   GROUND_TRUTH_ComboAi/
+│   │   │
+│   │   ├── AGANCY/
+│   │   │   ├── OrphioProductionStudio_COMPLETE.py ← MAIN APP
+│   │   │   ├── EnhancedModelScanner.py
+│   │   │   ├── IndividualSongRenderer.py
+│   │   │   ├── SystemSetupChecker.py
+│   │   │   │
+│   │   │   ├── [Existing core files]
+│   │   │   │   ├── Blueprint_Executor.py
+│   │   │   │   ├── orphio_engine.py
+│   │   │   │   ├── lmstudio_controler.py
+│   │   │   │   ├── orphio_config.py
+│   │   │   │   └── ...
+│   │   │   │
+│   │   │   └── PRODUCER_STRATEGIES/
+│   │   │       ├── 1_Narrative_Concept.json
+│   │   │       ├── 2_Hit_Single_Factory.json
+│   │   │       └── 3_Lofi_Study_Beats.json
+│   │   │
+│   │   ├── outputSongs_ComboAi/
+│   │   │   └── ALBUM_[Name]/
+│   │   │       ├── 00_ALBUM_MANIFEST.json
+│   │   │       ├── 01_Song_Title.wav
+│   │   │       ├── 01_Song_Title.json
+│   │   │       └── ...
+│   │   │
+│   │   └── PRODUCTION_SCHEMAS/
+│   │       └── schema_[timestamp].json
+│   │   ```
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🐛 Troubleshooting Matrix
+│   │   
+│   │   | Issue | Cause | Solution |
+│   │   |-------|-------|----------|
+│   │   | LM Studio error | Server not running | Start LM Studio, load model |
+│   │   | CUDA OOM | Insufficient VRAM | Use smaller model/duration |
+│   │   | Slow generation | Large model | Switch to 7B-8B model |
+│   │   | Generic tags | Tagger timeout | Use Manual/Hybrid mode |
+│   │   | No audio | Missing models | Check ckpt directory |
+│   │   | Bad quality | Low CFG scale | Increase to 1.8-2.0 |
+│   │   
+│   │   ---
+│   │   
+│   │   ## 📊 Performance Expectations
+│   │   
+│   │   ### Generation Times (Typical)
+│   │   
+│   │   **Draft Generation:**
+│   │   - Small model (8B): ~1-2 min per song
+│   │   - Large model (70B): ~5-10 min per song
+│   │   
+│   │   **Audio Rendering:**
+│   │   - 60s song: ~2-3 minutes
+│   │   - 120s song: ~3-5 minutes
+│   │   - 180s song: ~5-7 minutes
+│   │   
+│   │   **Full Album (5 songs, 120s each):**
+│   │   - Draft: ~5-10 minutes
+│   │   - Render: ~15-25 minutes
+│   │   - **Total: ~20-35 minutes**
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🎓 Best Practices
+│   │   
+│   │   ### 1. Testing New Setups
+│   │   - Start with 2 songs
+│   │   - Use 60-second duration
+│   │   - Test one render first
+│   │   - Verify quality before full album
+│   │   
+│   │   ### 2. Production Workflow
+│   │   - Create detailed concept
+│   │   - Review ALL lyrics before render
+│   │   - Save schemas for good results
+│   │   - Keep evaluation notes
+│   │   
+│   │   ### 3. Quality Optimization
+│   │   - Use reasoning models for narratives
+│   │   - Hybrid tag mode for best results
+│   │   - Edit generic/repetitive lyrics
+│   │   - Adjust CFG if output drifts
+│   │   
+│   │   ### 4. Efficiency Tips
+│   │   - Queue multiple albums overnight
+│   │   - Use saved schemas for similar projects
+│   │   - Keep successful model/strategy combos
+│   │   - Document what works
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🔮 Future Enhancements
+│   │   
+│   │   **Possible Additions:**
+│   │   - Real-time audio preview
+│   │   - Automatic mixing/mastering
+│   │   - Cloud model integration
+│   │   - Collaborative editing
+│   │   - Export to DAW formats
+│   │   - Quality metrics dashboard
+│   │   
+│   │   **Current Limitations:**
+│   │   - One album at a time
+│   │   - No audio preview during edit
+│   │   - Manual LM Studio model switching
+│   │   - Single user (no collaboration)
+│   │   
+│   │   ---
+│   │   
+│   │   ## ✅ System Validation
+│   │   
+│   │   Before reporting issues, verify:
+│   │   
+│   │   1. ✓ System checker passes all critical tests
+│   │   2. ✓ LM Studio shows green "Running" status
+│   │   3. ✓ GPU has adequate VRAM (8GB+)
+│   │   4. ✓ All model files present in /ckpt
+│   │   5. ✓ Working internet for LM Studio API
+│   │   6. ✓ No antivirus blocking connections
+│   │   
+│   │   ---
+│   │   
+│   │   ## 📞 Getting Help
+│   │   
+│   │   **Debug Steps:**
+│   │   1. Run `SystemSetupChecker.py`
+│   │   2. Check `orphio_studio.log`
+│   │   3. Test with Quick Start example
+│   │   4. Try Individual Song Renderer
+│   │   5. Check model with Scanner
+│   │   
+│   │   **Common Quick Fixes:**
+│   │   - Restart LM Studio
+│   │   - Clear GPU memory
+│   │   - Use smaller model
+│   │   - Reduce duration
+│   │   - Switch to Manual tags
+│   │   
+│   │   ---
+│   │   
+│   │   ## 🎉 You're All Set!
+│   │   
+│   │   You now have a **complete, professional AI music production system** with:
+│   │   
+│   │   ✅ Full workflow automation
+│   │   ✅ Intuitive GUI
+│   │   ✅ Multiple utilities
+│   │   ✅ Comprehensive documentation
+│   │   ✅ Best practices included
+│   │   ✅ Troubleshooting guides
+│   │   ✅ Extensible architecture
+│   │   
+│   │   **Start creating music today!**
+│   │   
+│   │   ---
+│   │   
+│   │   **Files Provided:**
+│   │   1. OrphioProductionStudio_COMPLETE.py
+│   │   2. EnhancedModelScanner.py
+│   │   3. IndividualSongRenderer.py
+│   │   4. SystemSetupChecker.py
+│   │   5. PRODUCTION_SYSTEM_README.md
+│   │   6. QUICK_START.md
+│   │   7. This overview document
+│   │   
+│   │   **Next Steps:**
+│   │   1. Run SystemSetupChecker.py
+│   │   2. Read QUICK_START.md
+│   │   3. Launch OrphioProductionStudio_COMPLETE.py
+│   │   4. Create your first album!
+│   │   
+│   │   ---
+│   │   
+│   │   *Happy creating! 🎵✨*
+│   │   
+│   ├── SystemSetupChecker.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   """
+│   │   ORPHIO SYSTEM SETUP CHECKER
+│   │   ============================
+│   │   Validates your environment before running the production studio
+│   │   """
+│   │   
+│   │   import sys
+│   │   from pathlib import Path
+│   │   from colorama import Fore, Style, init
+│   │   
+│   │   init(autoreset=True)
+│   │   
+│   │   
+│   │   class SystemChecker:
+│   │       """Comprehensive system validation"""
+│   │       
+│   │       def __init__(self):
+│   │           self.checks_passed = 0
+│   │           self.checks_failed = 0
+│   │           self.warnings = 0
+│   │           
+│   │       def print_header(self):
+│   │           """Print checker header"""
+│   │           print(f"\n{Fore.CYAN}{'=' * 70}")
+│   │           print(f"{Fore.CYAN}  ORPHIO PRODUCTION STUDIO - SYSTEM CHECKER")
+│   │           print(f"{Fore.CYAN}{'=' * 70}\n")
+│   │       
+│   │       def check(self, name, condition, error_msg, warning=False):
+│   │           """Perform a single check"""
+│   │           if condition:
+│   │               print(f"{Fore.GREEN}✓ {name}")
+│   │               self.checks_passed += 1
+│   │               return True
+│   │           else:
+│   │               if warning:
+│   │                   print(f"{Fore.YELLOW}⚠ {name}")
+│   │                   print(f"{Fore.YELLOW}  Warning: {error_msg}")
+│   │                   self.warnings += 1
+│   │               else:
+│   │                   print(f"{Fore.RED}✗ {name}")
+│   │                   print(f"{Fore.RED}  Error: {error_msg}")
+│   │                   self.checks_failed += 1
+│   │               return False
+│   │       
+│   │       def check_python_version(self):
+│   │           """Check Python version"""
+│   │           version = sys.version_info
+│   │           is_ok = version.major == 3 and version.minor >= 10
+│   │           
+│   │           if is_ok:
+│   │               version_str = f"{version.major}.{version.minor}.{version.micro}"
+│   │               print(f"{Fore.GREEN}✓ Python Version: {version_str}")
+│   │               self.checks_passed += 1
+│   │           else:
+│   │               print(f"{Fore.RED}✗ Python Version: {version.major}.{version.minor}")
+│   │               print(f"{Fore.RED}  Error: Python 3.10+ required")
+│   │               self.checks_failed += 1
+│   │           
+│   │           return is_ok
+│   │       
+│   │       def check_imports(self):
+│   │           """Check required Python packages"""
+│   │           print(f"\n{Fore.WHITE}Checking Python Dependencies:")
+│   │           
+│   │           packages = {
+│   │               "PyQt6": "PyQt6",
+│   │               "colorama": "colorama",
+│   │               "numpy": "numpy",
+│   │               "scipy": "scipy",
+│   │               "torch": "torch",
+│   │               "torchaudio": "torchaudio",
+│   │               "requests": "requests"
+│   │           }
+│   │           
+│   │           all_ok = True
+│   │           for display_name, import_name in packages.items():
+│   │               try:
+│   │                   __import__(import_name)
+│   │                   print(f"{Fore.GREEN}  ✓ {display_name}")
+│   │                   self.checks_passed += 1
+│   │               except ImportError:
+│   │                   print(f"{Fore.RED}  ✗ {display_name}")
+│   │                   print(f"{Fore.RED}    Install: pip install {import_name}")
+│   │                   self.checks_failed += 1
+│   │                   all_ok = False
+│   │           
+│   │           return all_ok
+│   │       
+│   │       def check_file_structure(self):
+│   │           """Check directory structure"""
+│   │           print(f"\n{Fore.WHITE}Checking File Structure:")
+│   │           
+│   │           # Find project root
+│   │           current = Path.cwd()
+│   │           root = None
+│   │           
+│   │           for parent in [current] + list(current.parents):
+│   │               if (parent / "ckpt").exists() or (parent / "GROUND_TRUTH_ComboAi").exists():
+│   │                   root = parent
+│   │                   break
+│   │           
+│   │           if not root:
+│   │               print(f"{Fore.RED}  ✗ Project root not found")
+│   │               print(f"{Fore.RED}    Cannot locate ckpt or GROUND_TRUTH_ComboAi folder")
+│   │               self.checks_failed += 1
+│   │               return False
+│   │           
+│   │           print(f"{Fore.GREEN}  ✓ Project root: {root}")
+│   │           self.checks_passed += 1
+│   │           
+│   │           # Check key directories
+│   │           required_dirs = {
+│   │               "ckpt": "Model checkpoint directory",
+│   │               "GROUND_TRUTH_ComboAi": "Project directory",
+│   │               "GROUND_TRUTH_ComboAi/AGANCY": "Core scripts location"
+│   │           }
+│   │           
+│   │           all_ok = True
+│   │           for dir_name, description in required_dirs.items():
+│   │               dir_path = root / dir_name
+│   │               if self.check(
+│   │                   f"  {description}",
+│   │                   dir_path.exists() and dir_path.is_dir(),
+│   │                   f"Missing: {dir_path}"
+│   │               ):
+│   │                   pass
+│   │               else:
+│   │                   all_ok = False
+│   │           
+│   │           return all_ok
+│   │       
+│   │       def check_models(self):
+│   │           """Check HeartMuLa models"""
+│   │           print(f"\n{Fore.WHITE}Checking HeartMuLa Models:")
+│   │           
+│   │           # Find ckpt directory
+│   │           current = Path.cwd()
+│   │           ckpt_dir = None
+│   │           
+│   │           for parent in [current] + list(current.parents):
+│   │               test_ckpt = parent / "ckpt"
+│   │               if test_ckpt.exists():
+│   │                   ckpt_dir = test_ckpt
+│   │                   break
+│   │           
+│   │           if not ckpt_dir:
+│   │               print(f"{Fore.RED}  ✗ ckpt directory not found")
+│   │               self.checks_failed += 1
+│   │               return False
+│   │           
+│   │           # Check required models
+│   │           required_items = {
+│   │               "HeartMuLa-oss-3B": "Brain model",
+│   │               "HeartCodec-oss": "Vocoder model",
+│   │               "tokenizer.json": "Tokenizer",
+│   │               "gen_config.json": "Generation config"
+│   │           }
+│   │           
+│   │           all_ok = True
+│   │           for item_name, description in required_items.items():
+│   │               item_path = ckpt_dir / item_name
+│   │               if self.check(
+│   │                   f"  {description}",
+│   │                   item_path.exists(),
+│   │                   f"Missing: {item_path}"
+│   │               ):
+│   │                   # Show size for directories
+│   │                   if item_path.is_dir():
+│   │                       size_mb = sum(f.stat().st_size for f in item_path.rglob('*') if f.is_file()) / (1024**2)
+│   │                       print(f"{Fore.CYAN}    Size: {size_mb:.1f} MB")
+│   │               else:
+│   │                   all_ok = False
+│   │           
+│   │           return all_ok
+│   │       
+│   │       def check_lm_studio(self):
+│   │           """Check LM Studio connection"""
+│   │           print(f"\n{Fore.WHITE}Checking LM Studio:")
+│   │           
+│   │           try:
+│   │               import requests
+│   │               response = requests.get("http://localhost:1234/v1/models", timeout=3)
+│   │               
+│   │               if response.status_code == 200:
+│   │                   data = response.json()
+│   │                   if data.get('data'):
+│   │                       model_id = data['data'][0].get('id', 'unknown')
+│   │                       print(f"{Fore.GREEN}  ✓ LM Studio connected")
+│   │                       print(f"{Fore.CYAN}    Active model: {model_id}")
+│   │                       self.checks_passed += 1
+│   │                       return True
+│   │           except:
+│   │               pass
+│   │           
+│   │           print(f"{Fore.YELLOW}  ⚠ LM Studio not connected")
+│   │           print(f"{Fore.YELLOW}    Start LM Studio and load a model before running")
+│   │           self.warnings += 1
+│   │           return False
+│   │       
+│   │       def check_gpu(self):
+│   │           """Check GPU availability"""
+│   │           print(f"\n{Fore.WHITE}Checking GPU:")
+│   │           
+│   │           try:
+│   │               import torch
+│   │               
+│   │               if torch.cuda.is_available():
+│   │                   device = torch.cuda.get_device_properties(0)
+│   │                   vram_gb = device.total_memory / (1024**3)
+│   │                   
+│   │                   print(f"{Fore.GREEN}  ✓ GPU detected: {device.name}")
+│   │                   print(f"{Fore.CYAN}    VRAM: {vram_gb:.1f} GB")
+│   │                   
+│   │                   # Check if adequate for audio generation
+│   │                   if vram_gb >= 8:
+│   │                       print(f"{Fore.GREEN}    Adequate for audio generation")
+│   │                       self.checks_passed += 1
+│   │                   else:
+│   │                       print(f"{Fore.YELLOW}    Low VRAM - may have issues")
+│   │                       print(f"{Fore.YELLOW}    Recommended: 8GB+ for HeartMuLa")
+│   │                       self.warnings += 1
+│   │                   
+│   │                   return True
+│   │               else:
+│   │                   print(f"{Fore.RED}  ✗ No CUDA GPU detected")
+│   │                   print(f"{Fore.RED}    GPU required for audio generation")
+│   │                   self.checks_failed += 1
+│   │                   return False
+│   │           
+│   │           except ImportError:
+│   │               print(f"{Fore.RED}  ✗ PyTorch not installed")
+│   │               self.checks_failed += 1
+│   │               return False
+│   │       
+│   │       def check_config_files(self):
+│   │           """Check configuration files"""
+│   │           print(f"\n{Fore.WHITE}Checking Configuration:")
+│   │           
+│   │           # Find AGANCY directory
+│   │           current = Path.cwd()
+│   │           agancy_dir = None
+│   │           
+│   │           for parent in [current] + list(current.parents):
+│   │               test_agancy = parent / "GROUND_TRUTH_ComboAi" / "AGANCY"
+│   │               if test_agancy.exists():
+│   │                   agancy_dir = test_agancy
+│   │                   break
+│   │           
+│   │           if not agancy_dir:
+│   │               print(f"{Fore.RED}  ✗ AGANCY directory not found")
+│   │               self.checks_failed += 1
+│   │               return False
+│   │           
+│   │           # Check key files
+│   │           key_files = {
+│   │               "orphio_config.py": "Configuration",
+│   │               "orphio_engine.py": "Audio engine",
+│   │               "lmstudio_controler.py": "LLM controller",
+│   │               "Blueprint_Executor.py": "Album generator",
+│   │               "tags.json": "Tag library"
+│   │           }
+│   │           
+│   │           all_ok = True
+│   │           for filename, description in key_files.items():
+│   │               filepath = agancy_dir / filename
+│   │               if not self.check(
+│   │                   f"  {description}",
+│   │                   filepath.exists(),
+│   │                   f"Missing: {filepath}"
+│   │               ):
+│   │                   all_ok = False
+│   │           
+│   │           return all_ok
+│   │       
+│   │       def check_producer_strategies(self):
+│   │           """Check producer strategy files"""
+│   │           print(f"\n{Fore.WHITE}Checking Producer Strategies:")
+│   │           
+│   │           # Find strategies directory
+│   │           current = Path.cwd()
+│   │           strategies_dir = None
+│   │           
+│   │           for parent in [current] + list(current.parents):
+│   │               test_dir = parent / "GROUND_TRUTH_ComboAi" / "AGANCY" / "PRODUCER_STRATEGIES"
+│   │               if test_dir.exists():
+│   │                   strategies_dir = test_dir
+│   │                   break
+│   │           
+│   │           if not strategies_dir:
+│   │               print(f"{Fore.YELLOW}  ⚠ PRODUCER_STRATEGIES directory not found")
+│   │               self.warnings += 1
+│   │               return False
+│   │           
+│   │           # Count strategy files
+│   │           strategy_files = list(strategies_dir.glob("*.json"))
+│   │           
+│   │           if strategy_files:
+│   │               print(f"{Fore.GREEN}  ✓ Found {len(strategy_files)} strategies")
+│   │               for strategy_file in strategy_files:
+│   │                   print(f"{Fore.CYAN}    - {strategy_file.name}")
+│   │               self.checks_passed += 1
+│   │               return True
+│   │           else:
+│   │               print(f"{Fore.YELLOW}  ⚠ No strategy files found")
+│   │               self.warnings += 1
+│   │               return False
+│   │       
+│   │       def print_summary(self):
+│   │           """Print check summary"""
+│   │           print(f"\n{Fore.CYAN}{'=' * 70}")
+│   │           print(f"{Fore.WHITE}SUMMARY:")
+│   │           print(f"  {Fore.GREEN}Passed:  {self.checks_passed}")
+│   │           print(f"  {Fore.YELLOW}Warnings: {self.warnings}")
+│   │           print(f"  {Fore.RED}Failed:  {self.checks_failed}")
+│   │           
+│   │           print(f"\n{Fore.WHITE}Status: ", end="")
+│   │           if self.checks_failed == 0:
+│   │               if self.warnings == 0:
+│   │                   print(f"{Fore.GREEN}✓ ALL CHECKS PASSED - READY TO RUN")
+│   │                   print(f"\n{Fore.CYAN}Run the production studio:")
+│   │                   print(f"{Fore.WHITE}  python OrphioProductionStudio_COMPLETE.py")
+│   │               else:
+│   │                   print(f"{Fore.YELLOW}⚠ READY WITH WARNINGS")
+│   │                   print(f"{Fore.YELLOW}  System will work but may have issues")
+│   │           else:
+│   │               print(f"{Fore.RED}✗ CRITICAL ISSUES FOUND")
+│   │               print(f"{Fore.RED}  Fix errors before running")
+│   │           
+│   │           print(f"{Fore.CYAN}{'=' * 70}\n")
+│   │       
+│   │       def run_all_checks(self):
+│   │           """Run all system checks"""
+│   │           self.print_header()
+│   │           
+│   │           # Core checks
+│   │           self.check_python_version()
+│   │           self.check_imports()
+│   │           self.check_file_structure()
+│   │           self.check_config_files()
+│   │           
+│   │           # Model checks
+│   │           self.check_models()
+│   │           
+│   │           # Runtime checks
+│   │           self.check_gpu()
+│   │           self.check_lm_studio()
+│   │           
+│   │           # Optional checks
+│   │           self.check_producer_strategies()
+│   │           
+│   │           # Summary
+│   │           self.print_summary()
+│   │           
+│   │           return self.checks_failed == 0
+│   │   
+│   │   
+│   │   def main():
+│   │       """Run system checker"""
+│   │       checker = SystemChecker()
+│   │       success = checker.run_all_checks()
+│   │       
+│   │       sys.exit(0 if success else 1)
+│   │   
+│   │   
+│   │   if __name__ == "__main__":
+│   │       main()
+│   │   
+│   ├── tags.json  [Mod: 2026-02-08 21:11:49]
+│   │   Content:
+│   │   {
+│   │       "1_GENRE_95%": [
+│   │           "Pop", "Rock", "Electronic", "Hiphop", "Jazz", "Classical", 
+│   │           "Techno", "Trance", "Ambient", "Folk", "Country", "Metal", "R&B"
+│   │       ],
+│   │       "2_TIMBRE_50%": [
+│   │           "Soft", "Warm", "Husky", "Bright", "Dark", "Distorted", "Clean", "Muffled"
+│   │       ],
+│   │       "3_GENDER_37%": [
+│   │           "Male", "Female"
+│   │       ],
+│   │       "4_MOOD_32%": [
+│   │           "Happy", "Sad", "Energetic", "Joyful", "Melancholic", 
+│   │           "Relaxing", "Dark", "Epic", "Romantic", "Sentimental"
+│   │       ],
+│   │       "5_INSTRUMENT_25%": [
+│   │           "Piano", "Synthesizer", "Acoustic Guitar", "Electric Guitar", 
+│   │           "Bass", "Drums", "Strings", "Violin", "Drum Machine"
+│   │       ],
+│   │       "6_SCENE_20%": [
+│   │           "Dance", "Workout", "Dating", "Study", "Cinematic", "Party", "Cafe", "Driving"
+│   │       ],
+│   │       "7_TOPIC_10%": [
+│   │           "Love", "Summer", "Heartbreak", "Faith", "Youthful", "Struggle", "Reflection"
+│   │       ]
+│   │   }
+│   │   
+│   ├── tagSelector.py  [Mod: 2026-02-12 22:11:02]
+│   │   Content:
+│   │   # === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+│   │   try:
+│   │       import windows_dll_fix
+│   │   except ImportError:
+│   │       import os, sys
+│   │       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│   │       if sys.platform == "win32":
+│   │           try: 
+│   │               os.add_dll_directory(r"C:\Windows\System32")
+│   │           except: 
+│   │               pass
+│   │   # === END AUTO-PATCH ===
+│   │   
+│   │   import json
+│   │   from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QScrollArea, QWidget,
+│   │                                QCheckBox, QPushButton, QLineEdit, QGridLayout,
+│   │                                QSizePolicy)
+│   │   from PyQt6.QtCore import Qt
+│   │   from orphio_config import conf
+│   │   
+│   │   
+│   │   class TagSelectorDialog(QDialog):
+│   │       def __init__(self, current_tags_str, parent=None):
+│   │           super().__init__(parent)
+│   │           self.setWindowTitle("Global Tag Library")
+│   │           self.setMinimumSize(800, 700)
+│   │   
+│   │           self.initially_selected = [t.strip().lower() for t in current_tags_str.split(",") if t.strip()]
+│   │           self.checkboxes = []
+│   │           self.init_ui()
+│   │           self.load_tags()
+│   │   
+│   │       def init_ui(self):
+│   │           layout = QVBoxLayout(self)
+│   │           layout.setContentsMargins(25, 25, 25, 25)
+│   │           layout.setSpacing(15)
+│   │   
+│   │           # Search Bar
+│   │           self.search_input = QLineEdit()
+│   │           self.search_input.setPlaceholderText("🔍 Filter genre or mood...")
+│   │           self.search_input.textChanged.connect(self.filter_tags)
+│   │           layout.addWidget(self.search_input)
+│   │   
+│   │           # Scroll Area
+│   │           self.scroll = QScrollArea()
+│   │           self.scroll.setWidgetResizable(True)
+│   │   
+│   │           self.container = QWidget()
+│   │           self.container.setObjectName("TagContainer")
+│   │           # Ensure background is dark
+│   │           self.container.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+│   │   
+│   │           self.grid_layout = QGridLayout(self.container)
+│   │           self.grid_layout.setSpacing(8)  # Space between tiles
+│   │   
+│   │           self.scroll.setWidget(self.container)
+│   │           layout.addWidget(self.scroll)
+│   │   
+│   │           # Apply Button
+│   │           self.ok_btn = QPushButton("APPLY SELECTED TAGS")
+│   │           self.ok_btn.setObjectName("PrimaryBtn")
+│   │           self.ok_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+│   │           self.ok_btn.clicked.connect(self.accept)
+│   │           layout.addWidget(self.ok_btn)
+│   │   
+│   │       def load_tags(self):
+│   │           try:
+│   │               if not conf.TAGS_FILE.exists(): return
+│   │               with open(conf.TAGS_FILE, 'r') as f:
+│   │                   data = json.load(f)
+│   │   
+│   │               # Check if it's the new Dict structure or old List structure
+│   │               if isinstance(data, list):
+│   │                   # Fallback for old style
+│   │                   all_tags = sorted(data)
+│   │                   self._populate_grid(all_tags, 0)
+│   │               else:
+│   │                   # NEW HIERARCHICAL STYLE
+│   │                   row_pointer = 0
+│   │                   for category, tags in sorted(data.items()):
+│   │                       # Add a Section Header
+│   │                       lbl = QLabel(category)
+│   │                       lbl.setStyleSheet("color: #FF9F1A; font-weight: bold; margin-top: 10px;")
+│   │                       self.grid_layout.addWidget(lbl, row_pointer, 0, 1, 4)  # Span 4 columns
+│   │                       row_pointer += 1
+│   │   
+│   │                       # Add the tags for this category
+│   │                       row_pointer = self._populate_grid(tags, row_pointer)
+│   │   
+│   │           except Exception as e:
+│   │               print(f"Error loading tags: {e}")
+│   │   
+│   │       def _populate_grid(self, tags, start_row):
+│   │           col = 0
+│   │           row = start_row
+│   │           for tag in tags:
+│   │               cb = QCheckBox(tag)
+│   │               cb.setObjectName("TagTile")
+│   │               cb.setCursor(Qt.CursorShape.PointingHandCursor)
+│   │               cb.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+│   │   
+│   │               # Logic: If checking this, uncheck others in same category?
+│   │               # For now, we trust the user, but visually grouping helps.
+│   │   
+│   │               if tag.lower() in self.initially_selected:
+│   │                   cb.setChecked(True)
+│   │   
+│   │               self.checkboxes.append(cb)
+│   │               self.grid_layout.addWidget(cb, row, col)
+│   │   
+│   │               col += 1
+│   │               if col > 3:  # 4 tiles per row
+│   │                   col = 0
+│   │                   row += 1
+│   │   
+│   │           # Return the next available row
+│   │           return row + 1 if col == 0 else row + 1
+│   │   
+│   │       def filter_tags(self, text):
+│   │           text = text.lower()
+│   │           for cb in self.checkboxes:
+│   │               cb.setVisible(text in cb.text().lower())
+│   │   
+│   │       def get_selected_tags(self):
+│   │           return [cb.text() for cb in self.checkboxes if cb.isChecked()]
+│   │   
+│   └── windows_dll_fix.py  [Mod: 2026-02-12 22:11:02]
+│       Content:
+│       """
+│       CRITICAL: This module MUST be imported FIRST
+│       Configures Windows environment to prevent DLL loading errors
+│       """
+│       
+│       import os
+│       import sys
+│       
+│       # Fix DLL loading issues
+│       os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+│       os.environ["OMP_NUM_THREADS"] = "4"
+│       os.environ["MKL_NUM_THREADS"] = "4"
+│       
+│       # Add Windows DLL directories
+│       if sys.platform == "win32":
+│           try:
+│               os.add_dll_directory(r"C:\Windows\System32")
+│               os.add_dll_directory(r"C:\Windows\SysWOW64")
+│           except (AttributeError, OSError):
+│               pass
+│       
+│       print("[DLL FIX] Environment configured for Windows")
+│       
+
+
+============================================================
+SECTION 2: DIRECTORY STRUCTURE
+------------------------------
+AGANCY/
+│   ├── BACKUPS/  [Mod: 2026-02-12 22:36:20]
+│   ├── PRODUCER_STRATEGIES/  [Mod: 2026-02-13 08:11:30]
+│   │   ├── 1_Narrative_Concept.json  [Mod: 2026-02-13 08:09:20]
+│   │   ├── 2_Brand_Identity_Hits.json  [Mod: 2026-02-13 08:09:30]
+│   │   ├── 3_Circadian_Ambient_Flow.json  [Mod: 2026-02-13 08:10:24]
+│   │   └── 4_Mythic_Journey.json  [Mod: 2026-02-13 08:11:30]
+│   ├── agency_styles.py  [Mod: 2026-02-13 08:29:13]
+│   ├── Album_Post_Processor.py  [Mod: 2026-02-12 22:11:02]
+│   ├── Blueprint_Executor.py  [Mod: 2026-02-13 08:32:49]
+│   ├── EnhancedModelScanner.py  [Mod: 2026-02-12 22:11:02]
+│   ├── human_evaluation.py  [Mod: 2026-02-12 22:11:02]
+│   ├── IndividualSongRenderer.py  [Mod: 2026-02-12 22:11:02]
+│   ├── lmstudio_controler.py  [Mod: 2026-02-13 09:14:39]
+│   ├── Orphio_Command_Center2.py  [Mod: 2026-02-12 22:11:02]
+│   ├── Orphio_Command_Center3.py  [Mod: 2026-02-12 22:11:02]
+│   ├── orphio_config.py  [Mod: 2026-02-12 22:11:02]
+│   ├── orphio_engine.py  [Mod: 2026-02-12 22:11:02]
+│   ├── orphio_schema.py  [Mod: 2026-02-12 22:11:02]
+│   ├── OrphioMusicAgencyStudio_______start.py  [Mod: 2026-02-12 22:11:02]
+│   ├── OrphioProductionStudio___________COMPLETE.py  [Mod: 2026-02-13 08:56:57]
+│   ├── RUN_FULL_ALBUM_PIPELINE___________start.py  [Mod: 2026-02-12 22:11:02]
+│   ├── SYSTEM_OVERVIEW.md  [Mod: 2026-02-12 20:28:12]
+│   ├── SystemSetupChecker.py  [Mod: 2026-02-12 22:11:02]
+│   ├── tags.json  [Mod: 2026-02-08 21:11:49]
+│   ├── tagSelector.py  [Mod: 2026-02-12 22:11:02]
+│   └── windows_dll_fix.py  [Mod: 2026-02-12 22:11:02]

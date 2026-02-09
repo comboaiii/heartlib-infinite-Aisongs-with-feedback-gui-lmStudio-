@@ -1,3 +1,17 @@
+# === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+try:
+    import windows_dll_fix
+except ImportError:
+    import os, sys
+
+    os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+    if sys.platform == "win32":
+        try:
+            os.add_dll_directory(r"C:\Windows\System32")
+        except:
+            pass
+# === END AUTO-PATCH ===
+
 # AGANCY/orphio_config.py
 import os
 import json
@@ -16,20 +30,42 @@ def find_actual_root():
 
 @dataclass
 class Config:
-    # ... (Keep your existing path definitions here) ...
+    # Path Configuration
     ROOT_DIR: Path = find_actual_root()
     CKPT_DIR: Path = ROOT_DIR / "ckpt"
     SRC_DIR: Path = ROOT_DIR / "src"
     OUTPUT_DIR: Path = ROOT_DIR / "GROUND_TRUTH_ComboAi" / "outputSongs_ComboAi"
     TAGS_FILE: Path = ROOT_DIR / "GROUND_TRUTH_ComboAi" / "tags.json"
 
+    # Network Configuration
     LM_STUDIO_URL: str = "http://localhost:1234/v1"
-    COOLFOOT_WAIT: int = 5
-    SAMPLE_RATE: int = 48000
-    FADE_OUT_DURATION: float = 2.5
 
+    # Audio Engine Settings
+    COOLFOOT_WAIT: float = 0.1
+    SAMPLE_RATE: int = 48000
+    FADE_OUT_DURATION: float = 0.2
+
+    # =========================================================================
+    # RENDERING PARAMETER RANGES (NEW)
+    # =========================================================================
+    # These define the allowed ranges for user adjustment
+    CFG_RANGE: tuple = (1.0, 3.0)  # Classifier-Free Guidance Scale range
+    TEMP_RANGE: tuple = (0.7, 1.3)  # Temperature range for generation
+    DURATION_RANGE: tuple = (30, 300)  # Duration in seconds (min, max)
+
+    # Default values (used as initial settings)
+    DEFAULT_CFG: float = 1.5  # Default CFG scale
+    DEFAULT_TEMP: float = 1.0  # Default temperature
+    DEFAULT_DURATION: int = 120  # Default duration in seconds
+
+    # =========================================================================
+    # DECORATOR SCHEMA SELECTION
+    # =========================================================================
     CURRENT_DECORATOR_SCHEMA: str = "1_clean_standard"
 
+    # =========================================================================
+    # LLM PROMPTS
+    # =========================================================================
     PROMPT_WRITER: str = (
         "You are a professional Songwriter. Write clean lyrics based on the user's topic.\n"
         "STRICT FORMATTING:\n"
@@ -49,7 +85,7 @@ class Config:
     )
 
     # =========================================================================
-    #  DECORATION STRATEGIES (The "Secret Sauce" for Audio Gen)
+    # DECORATION STRATEGIES (The "Secret Sauce" for Audio Gen)
     # =========================================================================
     DECORATOR_SCHEMAS = {
         "1_clean_standard": (
@@ -123,13 +159,21 @@ class Config:
     }
 
     def validate(self):
+        """Validates and creates necessary directories and files"""
         self.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-        # Ensure tags file exists (simplified)
+
+        # Ensure tags file exists
         if not self.TAGS_FILE.exists():
+            default_tags = {
+                "Genre": ["Pop", "Rock", "Electronic", "Jazz"],
+                "Mood": ["Happy", "Sad", "Energetic"],
+                "Gender": ["Male", "Female"]
+            }
             with open(self.TAGS_FILE, 'w') as f:
-                json.dump({"Genre": ["Pop", "Rock"]}, f)
+                json.dump(default_tags, f, indent=4)
 
     def set_output_dir(self, new_path: str):
+        """Updates the output directory"""
         path = Path(new_path)
         if path.exists() and path.is_dir():
             self.OUTPUT_DIR = path
@@ -137,7 +181,16 @@ class Config:
         else:
             print("❌ Invalid directory selected.")
 
+    def update_defaults(self, cfg=None, temp=None, duration=None):
+        """Updates default rendering parameters"""
+        if cfg is not None and self.CFG_RANGE[0] <= cfg <= self.CFG_RANGE[1]:
+            self.DEFAULT_CFG = cfg
+        if temp is not None and self.TEMP_RANGE[0] <= temp <= self.TEMP_RANGE[1]:
+            self.DEFAULT_TEMP = temp
+        if duration is not None and self.DURATION_RANGE[0] <= duration <= self.DURATION_RANGE[1]:
+            self.DEFAULT_DURATION = duration
 
 
+# Initialize global config instance
 conf = Config()
 conf.validate()

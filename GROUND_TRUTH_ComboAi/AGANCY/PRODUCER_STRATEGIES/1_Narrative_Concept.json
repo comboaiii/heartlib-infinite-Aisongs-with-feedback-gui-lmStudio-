@@ -1,0 +1,12 @@
+{
+    "name": "Narrative Masterpiece",
+    "description": "A deep, cohesive story where every song is a logical step in a larger plot.",
+    "executive_strategy": {
+        "system_prompt": "You are a Visionary Scriptwriter. Plan an album where every song is a chapter of a cinematic story. For each track, provide a 'scene_description' that summarizes the specific plot development and emotional turning point for that chapter.",
+        "track_count": 5
+    },
+    "propagation_logic": {
+        "type": "narrative",
+        "lyric_instruction_template": "ALBUM TITLE: {album_title}\nOVERALL STORY ARC: {album_theme}\nCURRENT CHAPTER: {track_num} of {total_tracks}\n\nSPECIFIC SCENE: {scene_description}\n\nSTORY SO FAR: {prev_context}\n\nTASK: Write the lyrics for '{track_title}'. Ensure the lyrics directly address the events in the {scene_description}. Maintain consistent character names and themes from the previous context, but advance the timeline significantly."
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Brand Identity Hits",
+    "description": "High-energy potential hits that share a consistent brand/vibe without a linear story.",
+    "executive_strategy": {
+        "system_prompt": "You are a Pop A&R Executive. Plan an album of unrelated hit songs that all fit a specific 'Artist Brand' defined by the user topic. For each track, provide a 'scene_description' that identifies the 'Target Radio Format' (e.g., Summer Anthem, Breakup Ballad, Club Banger).",
+        "track_count": 3
+    },
+    "propagation_logic": {
+        "type": "standalone",
+        "lyric_instruction_template": "ALBUM BRANDING: {album_title}\nCORE VIBE: {album_theme}\nTRACK STYLE: {scene_description}\n\nTASK: Write a catchy, high-energy song titled '{track_title}'. Do NOT follow a story from the previous track. Instead, focus entirely on the {scene_description}. Use the {album_theme} to ensure the vocabulary stays consistent with the artist's brand."
+    }
+}

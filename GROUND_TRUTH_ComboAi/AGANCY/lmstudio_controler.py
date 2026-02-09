@@ -1,3 +1,16 @@
+# === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+try:
+    import windows_dll_fix
+except ImportError:
+    import os, sys
+    os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+    if sys.platform == "win32":
+        try: 
+            os.add_dll_directory(r"C:\Windows\System32")
+        except: 
+            pass
+# === END AUTO-PATCH ===
+
 # AGANCY/lmstudio_controler.py
 import requests
 import json
@@ -104,7 +117,7 @@ class LMStudioController:
 
             data = res.json()
             raw_response = data['choices'][0]['message']['content'].strip()
-
+            print(raw_response)
             # Pass through the Smart Detector
             processed_response = self.detect_and_clean_reasoning(raw_response)
 

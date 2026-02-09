@@ -1,14 +1,29 @@
+# === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+try:
+    import windows_dll_fix
+except ImportError:
+    import os, sys
+
+    os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+    if sys.platform == "win32":
+        try:
+            os.add_dll_directory(r"C:\Windows\System32")
+        except:
+            pass
+# === END AUTO-PATCH ===
+
 import json
 import re
 import time
+import os
 from pathlib import Path
 from colorama import Fore, Style, init
 
-# IMPORT YOUR STACK
 from orphio_config import conf
 from lmstudio_controler import LMStudioController
 from orphio_engine import OrphioEngine
 
+# Initialize colorama for Green/Black console output
 init(autoreset=True)
 
 
@@ -16,221 +31,217 @@ class ProducerBlueprintEngine:
     def __init__(self):
         self.lms = LMStudioController(conf.LM_STUDIO_URL)
         self.engine = OrphioEngine(log_callback=print)
-
-        # Absolute pathing to avoid "No blueprints found"
+        # Point to the strategies folder
         self.strategies_path = Path(__file__).parent / "PRODUCER_STRATEGIES"
         self.strategies_path.mkdir(parents=True, exist_ok=True)
 
     def list_producers(self):
-        """Returns a list of dictionaries containing producer info"""
-        files = list(self.strategies_path.glob("*.json"))
+        """
+        DYNAMIC SCANNER: Scans the PRODUCER_STRATEGIES folder.
+        Ensures all .json files (1, 2, 3, 4) are loaded and sorted.
+        """
+        # Sort files by name so 1_ comes before 4_
+        files = sorted(list(self.strategies_path.glob("*.json")))
         producers_data = []
 
         for f in files:
             try:
-                # Specify encoding='utf-8' to handle Windows text issues
                 with open(f, 'r', encoding='utf-8') as j:
                     data = json.load(j)
                     producers_data.append({
                         "path": f,
-                        "name": data.get("name", f.name),
-                        "desc": data.get("description", "Standard Strategy")
+                        "name": data.get("name", f.stem.replace("_", " ")),
+                        "desc": data.get("description", "Dynamic Strategy"),
+                        "file_id": f.stem
                     })
             except Exception as e:
-                # If it's not a valid blueprint, skip it
-                print(f"{Fore.RED}⚠️ Skipped invalid strategy file: {f.name} ({e})")
+                print(f"{Fore.RED}⚠️ Error loading blueprint {f.name}: {e}")
                 continue
+
         return producers_data
 
     def load_blueprint(self, filepath):
-        """Loads the JSON strategy into memory"""
+        """Loads a specific JSON blueprint file."""
         with open(filepath, 'r', encoding='utf-8') as f:
             return json.load(f)
 
     def _extract_json_from_response(self, text):
-        """
-        Robustly extracts JSON object from LLM response.
-        """
-        # 1. Attempt strict clean
+        """Helper to extract JSON from LLM markdown responses."""
         try:
             clean_text = text.replace("```json", "").replace("```", "").strip()
             return json.loads(clean_text)
-        except json.JSONDecodeError:
-            pass
-
-        # 2. Regex Search
-        try:
+        except:
             match = re.search(r'\{.*\}', text, re.DOTALL)
             if match:
-                json_candidate = match.group(0)
-                return json.loads(json_candidate)
-        except (AttributeError, json.JSONDecodeError):
-            pass
-
+                try:
+                    return json.loads(match.group(0))
+                except:
+                    return None
         return None
 
-    def execute_album(self, blueprint, user_topic, user_duration=120, user_track_count=None):
+    def stage_1_draft_content(self, blueprint, user_topic, user_track_count=None, tag_mode="AI", manual_tags=None):
         """
-        Executes the album generation.
-        :param user_duration: Length of songs in seconds.
-        :param user_track_count: Override the blueprint's default track count.
+        PHASE 1: Planning and Lyric Generation.
+        Propagates Album Title, Theme, and Sequence Context to every song.
         """
-        print(f"\n{Fore.CYAN}╔════════════════════════════════════════════════╗")
-        print(f"{Fore.CYAN}║  🧢 ACTIVE PRODUCER: {blueprint['name'].upper()}")
-        print(f"{Fore.CYAN}║  📜 STRATEGY: {blueprint['propagation_logic']['type']}")
-        print(f"{Fore.CYAN}╚════════════════════════════════════════════════╝")
+        print(f"\n{Fore.GREEN}╔════════════════════════════════════════════════╗")
+        print(f"{Fore.GREEN}║  📝 PHASE 1: CONTENT DRAFTING & PROPAGATION   ║")
+        print(f"{Fore.GREEN}╚════════════════════════════════════════════════╝")
 
-        # 1. DETERMINE TRACK COUNT
-        # If user provided a count, override the blueprint
+        # 1. Determine Track Count
         target_count = blueprint['executive_strategy'].get('track_count', 3)
         if user_track_count and user_track_count > 0:
             target_count = user_track_count
-            print(
-                f"{Fore.YELLOW}🔧 OVERRIDE: Producing {target_count} tracks (Blueprint default was {blueprint['executive_strategy'].get('track_count')})")
 
-        # --- PRINT FULL PRODUCER SCHEMA ---
-        print(f"\n{Fore.LIGHTBLACK_EX}--- [PRODUCER BLUEPRINT SCHEMA] ---")
-        print(f"{Fore.LIGHTBLACK_EX}{json.dumps(blueprint, indent=4)}")
-        print(f"{Fore.LIGHTBLACK_EX}-----------------------------------")
-
-        # 2. EXECUTIVE PHASE (Planning)
-        print(f"\n{Fore.YELLOW}🧠 Planning Album Strategy...")
-
-        # Construct prompt with EXPLICIT track count requirement
+        # 2. Executive Producer Plans the Album
         exec_prompt = (
             f"{blueprint['executive_strategy']['system_prompt']}\n"
-            f"USER REQUEST: {user_topic}\n"
-            f"MANDATORY REQUIREMENT: Generate a tracklist with exactly {target_count} songs.\n"
-            "OUTPUT FORMAT: Return ONLY a valid JSON object with 'album_title', 'album_theme', and 'tracklist' (array).\n"
-            "Do not include conversational text."
+            f"USER CONCEPT: {user_topic}\n"
+            f"MANDATORY: Plan exactly {target_count} songs.\n"
+            "FORMAT: JSON with 'album_title', 'album_theme_summary', and 'tracklist' (array of objects with 'title' and 'scene_description')."
         )
 
-        # Call LLM
-        plan_raw = self.lms.chat(exec_prompt, "Generate the plan.")
+        print(f"{Fore.GREEN}🧠 [PRODUCER] Blueprinting the album structure...")
+        plan_raw = self.lms.chat("You are a Master Executive Music Producer.", exec_prompt)
         plan = self._extract_json_from_response(plan_raw)
 
         if not plan:
-            print(f"{Fore.RED}❌ Executive Producer failed to output valid JSON.")
-            print(f"{Fore.LIGHTBLACK_EX}Raw Output:\n{plan_raw}")
-            return
+            print(f"{Fore.RED}❌ Failed to plan album. LLM output was not valid JSON.")
+            return None
 
-        # Double check if the LLM respected the count (optional warning)
-        generated_count = len(plan.get('tracklist', []))
-        if generated_count != target_count:
-            print(
-                f"{Fore.MAGENTA}⚠️  Producer generated {generated_count} tracks instead of {target_count}. Proceeding with generated list.")
+        album_title = plan.get('album_title', 'Untitled Project')
+        album_theme = plan.get('album_theme_summary', user_topic)
+        track_list = plan.get('tracklist', [])
+        total_tracks = len(track_list)
 
-        # --- PRINT FULL ALBUM PLAN ---
-        print(f"\n{Fore.CYAN}--- [GENERATED ALBUM MANIFEST] ---")
-        print(f"{Fore.CYAN}{json.dumps(plan, indent=4)}")
-        print(f"{Fore.CYAN}----------------------------------")
+        print(f"{Fore.GREEN}✅ [PLAN READY] {album_title} | {total_tracks} tracks")
 
-        # Setup Album Folder
-        safe_album_title = "".join(
-            [c for c in plan.get('album_title', 'Untitled') if c.isalnum() or c in " _-"]).strip().replace(" ", "_")
+        # Create Album Directory
+        safe_album_title = "".join([c for c in album_title if c.isalnum() or c in " _-"]).strip().replace(" ", "_")
         album_dir = conf.OUTPUT_DIR / f"ALBUM_{safe_album_title}"
         album_dir.mkdir(parents=True, exist_ok=True)
 
-        print(f"{Fore.GREEN}✅ Plan Accepted. Starting Production Loop...")
+        # Save Manifest for reference
+        with open(album_dir / "00_ALBUM_MANIFEST.json", "w", encoding='utf-8') as f:
+            json.dump(plan, f, indent=4)
 
-        # 3. PRODUCTION LOOP
         context_history = []
-        track_list = plan.get('tracklist', [])
 
+        # 3. Iterative Generation Loop
         for i, track in enumerate(track_list):
-            t_title = track.get('title', f"Track {i + 1}")
-            t_desc = track.get('description', track.get('plot_point', track.get('hook_concept', '')))
-            t_mood = track.get('mood', track.get('energy_level', track.get('atmosphere', '')))
+            current_num = i + 1
+            t_title = track.get('title', f"Track {current_num}")
+            t_description = track.get('scene_description', "Atmospheric development.")
 
-            print(f"\n{Fore.MAGENTA}▶ TRACK {i + 1}/{len(track_list)}: {t_title}")
-            print(f"{Fore.MAGENTA}  ⏱️ Duration: {user_duration}s")
+            print(f"\n{Fore.GREEN}✍️  Drafting Song {current_num}/{total_tracks}: {t_title}")
 
-            # --- DYNAMIC PROMPT CONSTRUCTION ---
+            # Prepare Sequence Context (Narrative Flow)
+            prev_context_text = context_history[-1]['summary'] if context_history else "This is the opening track."
+
+            # Inject Blueprint Logic
             template = blueprint['propagation_logic']['lyric_instruction_template']
-            prev_context = context_history[-1]['summary'] if context_history else "None (First Track)"
-            prev_mood = context_history[-1]['mood'] if context_history else "Neutral"
+            smart_prompt = template.replace("{album_title}", album_title) \
+                .replace("{album_theme}", album_theme) \
+                .replace("{track_title}", t_title) \
+                .replace("{track_num}", str(current_num)) \
+                .replace("{total_tracks}", str(total_tracks)) \
+                .replace("{scene_description}", t_description) \
+                .replace("{prev_context}", prev_context_text)
 
-            try:
-                smart_prompt = template.replace("{prev_context}", prev_context) \
-                    .replace("{track_title}", t_title) \
-                    .replace("{track_description}", t_desc) \
-                    .replace("{album_theme}", plan.get('album_theme', '')) \
-                    .replace("{album_title}", plan.get('album_title', 'Untitled')) \
-                    .replace("{prev_mood}", prev_mood) \
-                    .replace("{track_mood}", t_mood)
-            except Exception:
-                smart_prompt = f"Topic: {t_title}"
-
-            print(f"{Fore.WHITE}   📝 PROMPT SENT TO LYRICIST:\n   \"{smart_prompt}\"")
-
-            # Write Lyrics & Tags
+            # 4. Generate Lyrics
             lyrics = self.lms.chat(conf.PROMPT_WRITER, smart_prompt)
             lyrics = self.engine._enforce_tag_schema(lyrics)
-            tags_raw = self.lms.chat(conf.PROMPT_TAGGER, lyrics, temp=0.2)
-            tags = self.engine._clean_tags_list(tags_raw)
-            print(f"{Fore.LIGHTBLUE_EX}   🏷️  TAGS: {tags}")
 
-            # Render Audio
+            # 5. Generate Tags
+            if tag_mode == "MANUAL":
+                tags = manual_tags if manual_tags else ["Electronic"]
+            else:
+                try:
+                    print(f"{Fore.GREEN}   🏷️  Analyzing genre and vibe...")
+                    tags_raw = self.lms.chat(conf.PROMPT_TAGGER, f"Album: {album_title}\nLyrics: {lyrics}", temp=0.2)
+                    tags = self.engine._clean_tags_list(tags_raw)
+                except Exception:
+                    tags = ["melodic", "modern", album_title.split()[0]]
+
+            print(f"{Fore.WHITE}   Final Style: {', '.join(tags)}")
+
+            # 6. Save Draft Ledger
+            draft_data = {
+                "track_number": current_num,
+                "total_tracks": total_tracks,
+                "album_title": album_title,
+                "title": t_title,
+                "status": "DRAFT_READY",
+                "parameters": {
+                    "topic": t_title,
+                    "lyrics": lyrics,
+                    "tags": tags,
+                    "scene": t_description
+                }
+            }
+
+            safe_title = "".join([c for c in t_title if c.isalnum() or c in " _-"]).replace(" ", "_")
+            fname = f"{current_num:02d}_{safe_title}_DRAFT.json"
+            with open(album_dir / fname, "w", encoding='utf-8') as f:
+                json.dump(draft_data, f, indent=4)
+
+            # Update context for the next song (first 200 chars of current lyrics)
+            summary = lyrics.replace("\n", " ")
+            context_history.append({"summary": summary[:200] + "..."})
+            time.sleep(1.0)
+
+        return album_dir
+
+    def stage_2_batch_render(self, album_dir, user_duration, cfg_scale=1.5):
+        """
+        PHASE 2: Batch Audio Rendering.
+        """
+        album_dir = Path(album_dir)
+        drafts = sorted(list(album_dir.glob("*_DRAFT.json")))
+
+        print(f"\n{Fore.GREEN}╔════════════════════════════════════════════════╗")
+        print(f"{Fore.GREEN}║  🔊 PHASE 2: BATCH AUDIO RENDERING             ║")
+        print(f"{Fore.GREEN}╚════════════════════════════════════════════════╝")
+
+        for idx, json_file in enumerate(drafts):
             try:
-                wav_path, _ = self.engine.render_audio_stage(
-                    topic=t_title,
-                    lyrics=lyrics,
-                    tags=tags,
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+
+                params = data.get("parameters", {})
+                self.engine.free_memory()
+
+                print(f"{Fore.GREEN}🚀 Rendering [{idx + 1}/{len(drafts)}]: {data.get('title')}")
+
+                wav_path, ledger = self.engine.render_audio_stage(
+                    topic=data.get("title"),
+                    lyrics=params.get("lyrics"),
+                    tags=params.get("tags"),
                     duration_s=user_duration,
-                    cfg=1.5,
+                    cfg=cfg_scale,
                     temp=1.0
                 )
 
-                # Move files
-                final_filename = f"{i + 1:02d}_{t_title.replace(' ', '_')}.wav"
-                final_filename = "".join([c for c in final_filename if c.isalnum() or c in " ._-"])
-                final_path = album_dir / final_filename
-                Path(wav_path).rename(final_path)
+                # Rename to final clean naming convention
+                dest_wav_name = json_file.name.replace("_DRAFT.json", ".wav")
+                dest_json_name = json_file.name.replace("_DRAFT.json", ".json")
 
-                json_src = Path(wav_path).with_suffix('.json')
-                if json_src.exists():
-                    json_src.rename(final_path.with_suffix('.json'))
+                if Path(wav_path).exists():
+                    Path(wav_path).rename(album_dir / dest_wav_name)
+                    ledger_source = Path(wav_path).with_suffix('.json')
+                    if ledger_source.exists():
+                        ledger_source.rename(album_dir / dest_json_name)
 
-                # Update History
-                context_history.append({
-                    "title": t_title,
-                    "summary": lyrics[:50] + "...",
-                    "mood": t_mood
-                })
+                os.remove(json_file)  # Remove draft once rendered
+                print(f"{Fore.GREEN}   ✅ Finished Production: {dest_wav_name}")
 
             except Exception as e:
-                print(f"{Fore.RED}❌ Audio Error: {e}")
+                print(f"{Fore.RED}❌ Batch Render Error on {json_file.name}: {e}")
 
-            self.engine.free_memory()
-            time.sleep(2)
-
-        print(f"\n{Fore.GREEN}✅ Production Complete using blueprint: {blueprint['name']}")
-
-
-if __name__ == "__main__":
-    system = ProducerBlueprintEngine()
-    blueprints = system.list_producers()
-
-    if not blueprints:
-        print(f"{Fore.RED}No blueprints found in AGANCY/PRODUCER_STRATEGIES/")
-    else:
-        print(f"\n{Fore.WHITE}Available Producers:")
-        for idx, bp in enumerate(blueprints):
-            print(f"[{idx + 1}] {bp['name']}")
-
-        try:
-            selection = int(input("\nSelect Producer (Number): ")) - 1
-            selected_bp_path = blueprints[selection]['path']
-            bp_data = system.load_blueprint(selected_bp_path)
-
-            topic = input("Enter Album Idea: ")
-
-            d_in = input("Duration (sec, default 120): ")
-            dur = int(d_in) if d_in.strip() else 120
-
-            c_in = input("Track Count (default: blueprint): ")
-            count = int(c_in) if c_in.strip() else None
-
-            system.execute_album(bp_data, topic, dur, count)
-        except Exception as e:
-            print(f"{Fore.RED}Error: {e}")
+    def execute_album(self, blueprint, user_topic, user_duration=120, user_track_count=None):
+        """Full Pipeline Orchestrator."""
+        album_path = self.stage_1_draft_content(blueprint, user_topic, user_track_count)
+        if album_path:
+            self.stage_2_batch_render(album_path, user_duration)
+            return album_path
+        return None

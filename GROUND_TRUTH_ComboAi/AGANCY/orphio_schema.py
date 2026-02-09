@@ -1,3 +1,16 @@
+# === AUTO-PATCHED: DLL Fix Import (DO NOT REMOVE) ===
+try:
+    import windows_dll_fix
+except ImportError:
+    import os, sys
+    os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+    if sys.platform == "win32":
+        try: 
+            os.add_dll_directory(r"C:\Windows\System32")
+        except: 
+            pass
+# === END AUTO-PATCH ===
+
 # AGANCY/orphio_schema.py
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any

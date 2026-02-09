@@ -1,0 +1,12 @@
+{
+    "name": "Mythic Journey",
+    "description": "An epic 5-stage arc following the Hero's Journey: Call to Adventure, Initiation, The Abyss, Transformation, and Return.",
+    "executive_strategy": {
+        "system_prompt": "You are a Master Mythologist and Storyteller. Plan a 5-track album that follows the classic Hero's Journey. For each track, provide a 'scene_description' identifying the specific mythic stage (e.g., 'Crossing the Threshold', 'The Ordeal') and the required emotional weight for that moment.",
+        "track_count": 5
+    },
+    "propagation_logic": {
+        "type": "narrative",
+        "lyric_instruction_template": "EPIC THEME: {album_theme}\nALBUM TITLE: {album_title}\n\nMYTHIC STAGE: {scene_description}\nTRACK POSITION: {track_num} of {total_tracks}\n\nTHE JOURNEY SO FAR: {prev_context}\n\nTASK: Write the lyrics for '{track_title}'. The tone must strictly adhere to the mythic stage described in the {scene_description}. If we are in 'The Abyss', the lyrics should be dark and introspective; if we are in 'The Return', they should be triumphant and wise. Ensure that specific symbols or items mentioned in the previous context ({prev_context}) reappear here to create a sense of destiny."
+    }
+}
