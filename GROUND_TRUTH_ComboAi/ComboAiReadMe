@@ -1,0 +1,18 @@
+patreon:https://www.patreon.com/c/ainewcode
+if you have problems with setting it feel free to  MSG uup :)
+
+
+
+Subject: 🚀 RELEASE: The "ComboAi" HeartMuLa Fork (GUI + Batch Pipeline)
+Hey guys,
+We are sharing a fresh codebase update today! We’ve forked the HeartMuLa song generator and built a functional wrapper around it to turn it into a more manageable local production setup.
+❤️ Special Thanks:
+First and foremost, a huge shoutout to the HeartMuLa Team. Their decision to open-source their codebase and models is incredible. We are building on top of their hard work—major respect to them!
+The Current Goal:
+We wanted to move beyond generating one song at a time and move toward autonomy. We’ve implemented a "Strict Pipeline" in this release that handles multiple song generations automatically. On our test machines, it’s averaging about one song every 3–4 minutes locally.
+✨ What’s in the current files:
+🎚️ Simple GUI (Orphio Studio): A basic visual interface to generate single songs with feedback controls.
+🧠 LM Studio Connection: Integration to use your local LLM for generating lyrics and tags.
+📂 Script-Based Batch Pipeline: A way to generate multiple tracks in a row autonomously.
+🌟 The Future Vision (What would be "Good to Do"):
+We have big ideas for where this could go. We aren't there yet, but here is the roadmap of what we’d love to see developed:
